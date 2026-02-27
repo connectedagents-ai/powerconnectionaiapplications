@@ -1,0 +1,11 @@
+---
+description: Load Connected Agents constitution and master rules before significant changes. Applies when this repo is in workspace.
+alwaysApply: true
+---
+# Platform Bootstrap
+
+This project follows Connected Agents.AI governance. Before adding new capabilities, tools, or agents:
+
+1. **Read first**: docs/constitution.md, docs/NEW_CAPABILITY_CHECKLIST.md. Repo map: CURSOR CLOUD AGENTS/docs/CONSOLIDATION_AND_REPO_STATUS.md
+2. **Create skill**: Use create-skill to add .cursor/skills/{name}/SKILL.md
+3. **Update indexes**: docs/cross-system-index.md, agents/MASTER_AGENT_INDEX.md
