@@ -9,7 +9,7 @@
 ## Operating Principles (Attorney Oversight + Transparency)
 
 - **Actions (default: agents execute):** Agents must execute through terminal, SDKs, IDEs, and/or CLIs — not the user. The agent runs commands; do not ask the user to run them. Do not describe or simulate without executing.
-- **Integration:** OneWish OS instructions integrate into all dev tools and propagate to all component repos, NextTech OS, agents, systems, and Connected Agents.AI (constitution §8; protocol §5 sync/update/push).
+- **Integration:** OneWish OS instructions integrate into all dev tools and propagate to all component repos, NextTech OS, agents, systems, and Connected Agents.AI (constitution §8; protocol §5 sync/update/push). **Real-time sync of all repos is a fundamental architecture feature:** all repos sync on every push from master (route + sync + push children); see `docs/CORE_ARCHITECTURE_TENETS.md` §1b and `docs/REALTIME_SYNC_ALL_REPOS.md`.
 - **Human-in-the-loop checkpoints** (mandatory):
   - Privilege calls, productions, filings, expert narratives, damages conclusions, and any compliance determinations.
 - **Claim typing**:

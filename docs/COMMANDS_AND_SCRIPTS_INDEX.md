@@ -27,6 +27,7 @@
 |--------|-------------|-----|
 | route-constitution-to-repos.sh | After constitution/checklist/universal/bootstrap change | NEVER_MISS §2, §3 |
 | sync-all-repos-and-review.sh | After doc/config change; weekly; before commit when master changed | NEVER_MISS §2, §3 |
+| sync-and-push-all-repos.sh | Real-time sync: route + sync + commit and push in each child. Runs on every push (pre-push hook). Optional: --no-push, --dry-run | REALTIME_SYNC_ALL_REPOS.md |
 | sync-dev-tools-repos-from-config.sh | After adding repo to config/repos.yaml; Claude Code/Codex same roots | NEVER_MISS §2 |
 | sync-canonical-mcp-connectors.py | Immediately after editing canonical-mcp-connectors.yaml | NEVER_MISS §2 |
 | push-to-claude-code-and-codex.sh | Sync + optional launch Claude Code or print Codex commands | MASTER_INDEX; CLAUDE.md |
@@ -40,7 +41,6 @@
 | run-all-verifications.sh | Phase 1 of Full Review; routing, connections | run-full-review.sh |
 | run-post-run-eval-loop.sh | After omni-audit, comprehensive-eval, full-review | EVAL_LOOP_AND_CHAIN_OF_EVENTS |
 | run-quick-review.sh | Scope/effects per change; emulation check | QUICK_AND_FULL_REVIEW |
-| run-cloud-agent-docs-review-and-copy.sh | Cloud agent review; copy developer/LLM/application docs; save to docs/knowledge, agent, combined | CLOUD_AGENT_DOCS_REVIEW_AND_KNOWLEDGE_COPY |
 | verify-all-connections.sh | After adding MCP/connector; optional in Full Review | NEVER_MISS §2 |
 | verify-routing.sh | Routing verification | run-all-verifications |
 | verify-platform-connections.sh | Platform connections check | verify-all-connections |

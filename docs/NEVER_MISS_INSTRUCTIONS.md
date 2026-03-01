@@ -29,6 +29,7 @@ The **constitution for connected tools** is the **canonical registry**: `config/
 | **Propagate canonical → all configs** | `python3 scripts/sync-canonical-mcp-connectors.py` | Immediately after editing canonical-mcp-connectors.yaml. |
 | **Push governance to ROUTES repos** | `./scripts/route-constitution-to-repos.sh` | After constitution, checklist, universal, or bootstrap change; before commit if governance changed. |
 | **Sync master files to all repos** | `./scripts/sync-all-repos-and-review.sh` | After doc/config change that should reach children; weekly; before commit when master files changed. |
+| **Real-time sync (sync + push all children)** | `./scripts/sync-and-push-all-repos.sh` | To keep all repos in sync: route + sync + commit and push in each child. Runs automatically on every `git push` from master (pre-push hook). See [REALTIME_SYNC_ALL_REPOS.md](REALTIME_SYNC_ALL_REPOS.md). |
 | **Refresh workspace for all dev tools** | `./scripts/sync-dev-tools-repos-from-config.sh` | After adding a repo to config/repos.yaml; when Claude Code/Codex need same roots. |
 | **Verify connections (env/keys)** | `./scripts/verify-all-connections.sh` | After adding MCP/connector; optional in Full Review. |
 | **Full Review (mandatory checklist)** | `./scripts/run-full-review.sh` | Before commit; when changing/merging repos; quarterly; on demand. Complete checklist in docs/audits/full-review-summary.md. |
@@ -134,7 +135,6 @@ Run in this order so no target is skipped. From **any** connected dev tool (Curs
 | [ONEWISHOS_CROSS_TOOL_AND_FULL_INVENTORY.md](ONEWISHOS_CROSS_TOOL_AND_FULL_INVENTORY.md) | Cross-tool execution; full inventory; scripts that connect/configure |
 | [audits/artifacts/README.md](audits/artifacts/README.md) | Never-miss sync flow diagram; push/sync summaries |
 | [audits/full-review-summary.md](audits/full-review-summary.md) | Mandatory checklist after Full Review |
-| [MASTER_FILE_COMMIT_REVIEW_AND_FINAL_DECISION_SYSTEM.md](MASTER_FILE_COMMIT_REVIEW_AND_FINAL_DECISION_SYSTEM.md) | After commit to master: retroactive review (Claude Code, Cursor, Codex); gather; rerun; Claude Code final decisions on OneWish OS |
 | [DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md](DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md) | All 9 dev tools; no-fail audit |
 
 _Maintain at: docs/NEVER_MISS_INSTRUCTIONS.md. Update when adding scripts, triggers, or locations._
