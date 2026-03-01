@@ -1,0 +1,80 @@
+---
+description: Prevent context overload and agent inefficiency — execute immediately, persist early, scope narrowly
+alwaysApply: true
+---
+
+# Agent Efficiency & Context Management
+
+Follow these rules to avoid context overload, token waste, and inefficient agent behavior.
+
+## Execute, Don't Announce
+
+- **Never** say "I'll create X right now" or "Let me do X" without immediately performing the action.
+- If blocked, state the blocker in one line — do not repeat intent.
+- Prefer silent execution; if status is needed, one short line suffices.
+
+## Persist Early
+
+- Write fetched data, designs, and outputs to files **as soon as** they are produced.
+- Do not hold large structures (lists, JSON) in context across multiple turns.
+- Use paths like `{output_dir}/raw/{resource}.json` or `plan-{topic}.md`.
+
+## Scope Narrowly
+
+- One clear task per interaction. If the user gives multiple tasks, acknowledge and execute the first.
+- Split broad requests ("connect 8 tools + create repo + consolidate") into ordered steps; do step 1, persist, then continue.
+
+## Verify Once
+
+- If a step is complete, verify once and move on.
+- Do **not** enter verification loops ("Verified X exists" repeated).
+- Do **not** re-verify in subsequent turns.
+
+## Todo Sparingly
+
+- Update task lists only when status **meaningfully** changes.
+- Do not update todos every turn.
+
+## API/MCP Efficiency
+
+- Paginate: use limit 10–25 per request.
+- Request only required fields.
+- If hitting complexity limits: reduce fields, split queries, or paginate more aggressively.
+- Cache responses to files; reference files instead of re-querying.
+
+## Self-Correct Before Executing Plans
+
+**Before executing any plan**, check for inefficiency and refactor if needed:
+
+| If plan has...            | Self-correct by...                            |
+| ------------------------- | --------------------------------------------- |
+| 4+ tasks in one go        | Split into ordered steps; execute step 1 only |
+| No output path            | Add explicit file path; write there first     |
+| Broad API query           | Scope to one resource; paginate; add limit    |
+| Re-fetch of existing file | Replace with "read from `path`"               |
+| Verify/validate in a loop | Single verification at end                    |
+| Intent without action     | Replace with concrete first action            |
+
+Refactor silently. Do not announce "I'm self-correcting." Execute the first step, persist, then continue.
+
+## Anti-Patterns (Never)
+
+| Don't                                           | Do                                     |
+| ----------------------------------------------- | -------------------------------------- |
+| "I'll create the document right now" (repeated) | Create it immediately or state blocker |
+| Update todos every message                      | Update only on status change           |
+| "Verified X exists" in a loop                   | Verify once, then proceed              |
+| Re-fetch after context loss                     | Persist to disk right after fetch      |
+| Long meta-commentary                            | One-line status or silence             |
+| Executing inefficient plan without refactoring  | Check, refactor, then execute step 1   |
+
+## Recursive Improvement
+
+- **On failure**: Write `postmortem-{YYYYMMDD-HHmm}.md` (what failed, cause, fix, suggested rule).
+- **At session end**: Append one entry to `lessons.md` (do more, do less, rule to add).
+- **When noticing new waste**: Add to this rule's anti-pattern table before continuing.
+- **When workflow works**: Append to `patterns-that-work.md` (what, why, reuse when).
+
+## Full Reference
+
+For comprehensive rules and cross-tool integration: see `AGENTS_EFFICIENCY.md` in the agent-efficiency package.

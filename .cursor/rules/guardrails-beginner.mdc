@@ -1,0 +1,45 @@
+---
+description: Safety and validation for beginners — confirm destructive ops, never commit secrets, validate before write
+alwaysApply: true
+---
+
+# Guardrails (Beginner Safety)
+
+## Destructive Operations — Always Confirm
+
+Before running any of these, **pause and state what will be deleted/overwritten**. Do not proceed without explicit user confirmation:
+
+- `rm -rf`, bulk delete, `force push`, overwriting production config
+- Dropping tables, revoking access, deleting keys
+
+**Rule**: If the operation cannot be undone easily, require explicit "yes" from the user.
+
+## Sensitive Data — Never Commit
+
+- API keys, tokens, passwords, `.env` (except `.env.example`)
+- PII (names, emails, SSN), private keys
+
+**Before every commit**: Scan for `api_key`, `secret`, `password`, `token`, `.env`.
+
+## Validation Before Write
+
+- Read the target file first — understand current state
+- Check existing patterns — follow conventions
+- If adding to list/config — ensure no duplicates, valid format
+
+## Scope Check (Before Executing Plan)
+
+- One task or many? If many → split; do first only
+- Output path specified? If not → add one
+- Will this overwrite something? If yes → confirm
+
+## Human Checkpoints (Pause For)
+
+- First time using a new tool/API — explain; wait for approval
+- Changing auth or permissions — describe impact; pause
+- Deployment to production — require explicit approval
+- Legal/compliance or privileged data — flag for human review
+
+## Full Reference
+
+See `developer-enhancement/GUARDRAILS.md` for complete guide.

@@ -1,0 +1,150 @@
+# Module Selection Registry — Vercel, v0, and Platform Modules
+# Use when choosing components and packages for Connected Agents apps.
+# See: docs/MODULE_ARCHITECTURE_AND_PLATFORM_STACK.md
+
+version: "1.0"
+
+# UI Components
+ui:
+  primary: shadcn/ui
+  optional: [radix-ui, headless-ui]
+  design_tokens: docs/FUNDAMENTAL_STRATEGIES_AND_SPECIFICATIONS.md
+  v0_instructions: docs/V0_SETUP_AND_INSTRUCTIONS.md
+
+# Charts & Visualizations
+charts:
+  primary: recharts
+  optional: [d3, vis.js]
+  use_for: [dashboards, damages, RICO scores, pattern timeline]
+
+# Graph Visualization
+graph_viz:
+  primary: react-force-graph
+  optional: [vis.js, cytoscape]
+  use_for: [knowledge_graph, enterprise_map, entity_relationships]
+
+# Timeline
+timeline:
+  primary: vis-timeline
+  optional: [react-chrono, custom]
+  use_for: [litigation_timeline, predicate_acts]
+
+# Authentication
+auth:
+  primary: supabase-auth
+  optional: [nextauth, clerk]
+  features: [magic_link, RBAC, session]
+
+# Forms & Validation
+forms:
+  primary: [react-hook-form, zod]
+  optional: [formik]
+  use_for: [document_properties, filing_drafts, case_intake]
+
+# Tables
+tables:
+  primary: [tanstack-table, shadcn-data-table]
+  optional: [ag-grid]
+  use_for: [document_lists, case_tables, production_sets]
+
+# AI Chat & Streaming
+ai:
+  primary: vercel-ai-sdk
+  optional: [langchain-js, openai-sdk]
+  features: [streaming, tool_use, structured_output]
+
+# Voice Agents
+voice:
+  primary: elevenlabs
+  optional: [whisper, deepgram]
+  use_for: [legal_scribe, deposition_transcriber, case_research_voice]
+  module_ref: docs/modules/voice-agents.md
+
+# Dashboards
+dashboards:
+  primary: [recharts, custom_react]
+  optional: [hex_patterns, metabase]
+  use_for: [case_kpi, agent_status, damages_summary]
+
+# Platforms (deploy & build)
+platforms:
+  vercel: [web_apps, edge, serverless]
+  v0: [ui_generation, litigationforc1_v02]
+  replit: [staging, python_agents]
+  lovable: [rapid_prototype]
+  bolt: [browser_ide, multi_framework]
+  huggingface: [models, spaces, datasets]
+  figma: [design_system, code_connect]
+  hex: [data_dashboards, ai_analytics]
+
+# Researched 2025: Website, Web App, Mobile, 3D, No-Code
+# See docs/MODULE_ARCHITECTURE_AND_PLATFORM_STACK.md §7
+architecture:
+  website: [jamstack, headless_cms, ssg]
+  web_app: [layered, microservices, event_driven, serverless]
+  mobile: [react_native, flutter, pwa]
+  ui_trends: [3d_holographic, webxr, voice_ui, ai_personalization]
+  no_code_low_code:
+    automation: [zapier, make, n8n, power_platform, workato]
+    ui_builders: [webflow, bubble, retool, airtable, weweb]
+    mobile: [thunkable, flutterflow]
+  3d_immersive: [babylon_js, three_js, webxr]
+
+# Lenny's Podcast / Newsletter (6,500 tech professionals, 2025)
+# Source: lennysnewsletter.com "What's in your stack", podcast tech stack, sponsors
+lennys_top_valued:
+  - linear
+  - cursor
+  - slack
+  - notion
+  - perplexity
+lennys_ai:
+  [chatgpt, claude, perplexity, cursor, v0, replit, bolt, github_copilot]
+lennys_analytics:
+  [amplitude, mixpanel, posthog, hotjar, dovetail, google_analytics]
+lennys_sponsors:
+  [
+    amplitude,
+    heap,
+    ahrefs,
+    attio,
+    assemblyai,
+    brave_search,
+    coda,
+    commandbar,
+    dovetail,
+    dx,
+    eppo,
+    explo,
+    flatfile,
+    formsort,
+    braintrust,
+  ]
+
+# Product Pass (20+ tools, Jul 2025) — lennysnewsletter.com/p/productpass
+lennys_product_pass:
+  research: [manus, perplexity]
+  design: [canva_business, framer, gamma, mobbin]
+  build:
+    [
+      lovable,
+      replit,
+      bolt,
+      n8n,
+      amp,
+      factory,
+      devin,
+      warp,
+      magic_patterns,
+      elevenlabs,
+    ]
+  scale: [railway]
+  track: [posthog]
+  collaborate: [linear, wispr_flow, granola, chatprd]
+  incorporate: [stripe_atlas]
+
+# Recent episodes & new tools (2025)
+lennys_recent:
+  episodes: [lovable_200m_arr, bolt_40m_arr]
+  new_tools: [wispr_flow, magic_patterns, gamma_3, manus, vzero, chatprd]
+  sponsors: [workos, vzero, eppo, oneschema]

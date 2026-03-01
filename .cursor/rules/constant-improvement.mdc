@@ -1,0 +1,20 @@
+---
+description: Lightweight constant improvement — one-line capture after prompt; no heavy ops; propagate to rules
+alwaysApply: true
+---
+
+# Constant Improvement (Lightweight)
+
+After each significant prompt:
+
+| Outcome               | Action                                                     |
+| --------------------- | ---------------------------------------------------------- |
+| Success + new pattern | Append one line to `patterns-that-work.md`                 |
+| Failure               | Append to `postmortems.log` or `postmortem-{timestamp}.md` |
+| Inefficiency noticed  | Add one anti-pattern row to agent-efficiency-context.mdc   |
+
+**Do not** after every prompt: full post-mortem, research, multi-agent review. Reserve for weekly/monthly cadence.
+
+**Cost guardrail**: Improvement activities &lt;10% of total. If exceeding, reduce cadence.
+
+**Full protocol**: `developer-enhancement/CONTINUOUS_IMPROVEMENT.md`

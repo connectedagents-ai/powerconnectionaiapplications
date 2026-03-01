@@ -1,0 +1,393 @@
+version: "1.0"
+applications:
+  google_cloud:
+    env:
+      - GOOGLE_APPLICATION_CREDENTIALS
+      - GOOGLE_CLOUD_PROJECT
+    check: '[[ -n "$GOOGLE_CLOUD_PROJECT" ]]'
+    note: GCP compute, storage, Document AI, BigQuery
+  linear:
+    env:
+      - LINEAR_API_KEY
+    check:
+      'curl -sS -H ''Authorization: $LINEAR_API_KEY'' -X POST https://api.linear.app/graphql
+      -d ''{"query":"{ viewer { id } }
+
+      "}'' | jq -e ''.data.viewer.id'' >/dev/null'
+    config_file: config/linear-project-mappings.yaml
+  slack:
+    env:
+      - SLACK_BOT_TOKEN
+      - SLACK_WEBHOOK_URL
+    check:
+      '[[ -n "$SLACK_WEBHOOK_URL" ]] && curl -sS -X POST -H ''Content-type: application/json''
+      -d ''{"text":"health"}'' "$SLACK_WEBHOOK_URL" --max-time 5 | true'
+  github:
+    env:
+      - GITHUB_PERSONAL_ACCESS_TOKEN
+    check: gh auth status 2>/dev/null || [[ -n "$GITHUB_PERSONAL_ACCESS_TOKEN" ]]
+  notion:
+    env:
+      - NOTION_API_KEY
+    check: '[[ -n "$NOTION_API_KEY" ]]'
+  supabase:
+    env:
+      - SUPABASE_URL
+      - SUPABASE_SERVICE_ROLE_KEY
+    check: '[[ -n "$SUPABASE_URL" ]]'
+  postgres:
+    env:
+      - POSTGRES_URL
+      - DATABASE_URL
+    check: '[[ -n "${POSTGRES_URL:-$DATABASE_URL}" ]]'
+  neo4j:
+    env:
+      - NEO4J_URI
+      - NEO4J_USERNAME
+      - NEO4J_PASSWORD
+    check: '[[ -n "$NEO4J_URI" ]]'
+  1password:
+    env: []
+    check: op --version 2>/dev/null && (op account get 2>/dev/null || true)
+  vercel:
+    env:
+      - VERCEL_TOKEN
+    check: vercel whoami 2>/dev/null || [[ -n "$VERCEL_TOKEN" ]]
+  airtable:
+    env:
+      - AIRTABLE_API_KEY
+    check: '[[ -n "$AIRTABLE_API_KEY" ]]'
+  hubspot:
+    env:
+      - HUBSPOT_ACCESS_TOKEN
+    check: '[[ -n "$HUBSPOT_ACCESS_TOKEN" ]]'
+  attio:
+    env:
+      - ATTIO_API_KEY
+    check: '[[ -n "$ATTIO_API_KEY" ]]'
+  stripe:
+    env:
+      - STRIPE_SECRET_KEY
+    check: '[[ -n "$STRIPE_SECRET_KEY" ]]'
+  firebase:
+    env:
+      - FIREBASE_SERVICE_ACCOUNT
+    check: '[[ -n "$FIREBASE_SERVICE_ACCOUNT" ]]'
+  apify:
+    env:
+      - APIFY_API_TOKEN
+    check: '[[ -n "$APIFY_API_TOKEN" ]]'
+  brave_search:
+    env:
+      - BRAVE_API_KEY
+    check: '[[ -n "$BRAVE_API_KEY" ]]'
+  blackbox:
+    env:
+      - BLACKBOX_API_KEY
+    check: '[[ -n "$BLACKBOX_API_KEY" ]]'
+  microsoft_copilot:
+    env:
+      - MS_GRAPH_CLIENT_ID
+      - MS_GRAPH_CLIENT_SECRET
+      - MS_GRAPH_TENANT_ID
+    check: '[[ -n "$MS_GRAPH_CLIENT_SECRET" ]]'
+    note: rbailey.713@outlook.com, rbailey@netzerolending.io
+  aws:
+    env:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+    check: '[[ -n "$AWS_ACCESS_KEY_ID" ]]'
+    note: All accounts/sub-accounts
+  zoom:
+    env:
+      - ZOOM_API_KEY
+      - ZOOM_API_SECRET
+    check: '[[ -n "$ZOOM_API_KEY" ]]'
+  box:
+    env:
+      - BOX_CLIENT_ID
+      - BOX_CLIENT_SECRET
+      - BOX_ENTERPRISE_ID
+    check: '[[ -n "$BOX_CLIENT_SECRET" ]]'
+  replit:
+    env:
+      - REPLIT_API_KEY
+    check: '[[ -n "$REPLIT_API_KEY" ]]'
+    note: SwarmRICO, Verital-Legal-Tech deployments
+  lovable:
+    env:
+      - LOVABLE_API_KEY
+    check: '[[ -n "$LOVABLE_API_KEY" ]]'
+  huggingface:
+    env:
+      - HF_TOKEN
+    check: '[[ -n "$HF_TOKEN" ]]'
+  v0:
+    env:
+      - V0_API_KEY
+      - VERCEL_TOKEN
+    check: '[[ -n "${V0_API_KEY:-$VERCEL_TOKEN}" ]]'
+  framer:
+    env:
+      - FRAMER_API_KEY
+    check: '[[ -n "$FRAMER_API_KEY" ]]'
+  egnyte:
+    env:
+      - EGNYTE_ACCESS_TOKEN
+      - EGNYTE_CLIENT_ID
+      - EGNYTE_CLIENT_SECRET
+    check: '[[ -n "$EGNYTE_ACCESS_TOKEN" ]]'
+    note: Legal stack; Power Connection AI
+  goose:
+    env:
+      - GOOSE_API_KEY
+    check: '[[ -n "$GOOSE_API_KEY" ]]'
+    note: AI dev agent
+  canva:
+    env:
+      - CANVA_ACCESS_TOKEN
+    check: '[[ -n "$CANVA_ACCESS_TOKEN" ]]'
+    note: Design, presentations
+  adobe:
+    env:
+      - ADOBE_CLIENT_ID
+      - ADOBE_CLIENT_SECRET
+    check: '[[ -n "$ADOBE_CLIENT_SECRET" ]]'
+  pipefy:
+    env:
+      - PIPEFY_API_TOKEN
+    check: '[[ -n "$PIPEFY_API_TOKEN" ]]'
+  zendesk:
+    env:
+      - ZENDESK_ACCESS_TOKEN
+    check: '[[ -n "$ZENDESK_ACCESS_TOKEN" ]]'
+  zoho:
+    env:
+      - ZOHO_ACCESS_TOKEN
+    check: '[[ -n "$ZOHO_ACCESS_TOKEN" ]]'
+  perplexity:
+    env:
+      - PERPLEXITY_API_KEY
+    check: '[[ -n "$PERPLEXITY_API_KEY" ]]'
+  duckduckgo:
+    env:
+      - DDG_API_KEY
+    check: '[[ -n "$DDG_API_KEY" ]]'
+  atlassian:
+    env:
+      - ATLASSIAN_API_TOKEN
+      - ATLASSIAN_USER_EMAIL
+    check: '[[ -n "$ATLASSIAN_API_TOKEN" ]]'
+    note: "Jira, Confluence — MCP: plugin-atlassian"
+  figma:
+    env: []
+    check: "true"
+    note: "Design — MCP: plugin-figma-figma; URL https://figma.com/mcp"
+  clay:
+    env:
+      - CLAY_API_KEY
+    check: '[[ -n "$CLAY_API_KEY" ]]'
+  todoist:
+    env:
+      - TODOIST_API_TOKEN
+    check: '[[ -n "$TODOIST_API_TOKEN" ]]'
+  trello:
+    env:
+      - TRELLO_API_KEY
+      - TRELLO_TOKEN
+    check: '[[ -n "$TRELLO_API_KEY" ]]'
+  okta:
+    env:
+      - OKTA_DOMAIN
+      - OKTA_API_TOKEN
+    check: '[[ -n "$OKTA_API_TOKEN" ]]'
+  sentry:
+    env:
+      - SENTRY_DSN
+      - SENTRY_AUTH_TOKEN
+    check: '[[ -n "$SENTRY_DSN" ]]'
+    note: "Error monitoring; Vercel + Sentry per app (see APPLICATIONS_AND_ARCHITECTURE)"
+mcps:
+  supabase:
+    env: []
+    check:
+      "[[ -f config/mcp-servers/cursor-mcp-enhanced.json ]] && grep -q supabase
+      config/mcp-servers/cursor-mcp-enhanced.json"
+  notion:
+    env:
+      - NOTION_API_KEY
+    check: '[[ -n "$NOTION_API_KEY" ]]'
+  linear:
+    env:
+      - LINEAR_API_KEY
+    check: '[[ -n "$LINEAR_API_KEY" ]]'
+  github:
+    env:
+      - GITHUB_PERSONAL_ACCESS_TOKEN
+    check: '[[ -n "$GITHUB_PERSONAL_ACCESS_TOKEN" ]]'
+  slack:
+    env:
+      - SLACK_BOT_TOKEN
+    check: '[[ -n "$SLACK_BOT_TOKEN" ]]'
+  postgres:
+    env:
+      - POSTGRES_URL
+    check: '[[ -n "$POSTGRES_URL" ]]'
+  brave_search:
+    env:
+      - BRAVE_API_KEY
+    check: '[[ -n "$BRAVE_API_KEY" ]]'
+  neo4j:
+    env:
+      - NEO4J_URI
+      - NEO4J_USERNAME
+      - NEO4J_PASSWORD
+    check: '[[ -n "$NEO4J_URI" ]]'
+  airtable:
+    env:
+      - AIRTABLE_API_KEY
+    check: '[[ -n "$AIRTABLE_API_KEY" ]]'
+  firebase:
+    env:
+      - FIREBASE_SERVICE_ACCOUNT
+    check: '[[ -n "$FIREBASE_SERVICE_ACCOUNT" ]]'
+  apify:
+    env:
+      - APIFY_API_TOKEN
+    check: '[[ -n "$APIFY_API_TOKEN" ]]'
+  huggingface:
+    env:
+      - HF_TOKEN
+    check: '[[ -n "$HF_TOKEN" ]]'
+  codacy:
+    env: []
+    check: "true"
+  fetch:
+    env: []
+    check: "true"
+  git:
+    env: []
+    check: git rev-parse --git-dir >/dev/null 2>&1
+  MCP_DOCKER:
+    env: []
+    check: docker info 2>/dev/null || true
+  firecrawl:
+    env:
+      - FIRECRAWL_API_KEY
+    check: '[[ -n "$FIRECRAWL_API_KEY" ]]'
+    note: Firecrawl — Scrape, Search, Crawl, Agent (LLM-ready web data)
+  attio:
+    env:
+      - ATTIO_API_KEY
+    check: '[[ -n "$ATTIO_API_KEY" ]]'
+    note: Attio — CRM
+  atlassian:
+    env:
+      - ATLASSIAN_API_TOKEN
+      - ATLASSIAN_USER_EMAIL
+    check: '[[ -n "$ATLASSIAN_API_TOKEN" ]]'
+    note: Jira, Confluence
+  figma:
+    env: []
+    check: "true"
+    note: "Design — get_design_context, code_connect; use with Figma URLs"
+  docker:
+    env: []
+    check: "true"
+    note: MCP_DOCKER — gateway
+clis:
+  op:
+    check: op --version 2>/dev/null
+    note: 1Password CLI
+  gh:
+    check: gh --version 2>/dev/null
+    note: GitHub CLI
+  vercel:
+    check: vercel --version 2>/dev/null
+    note: Vercel CLI
+  docker:
+    check: docker --version 2>/dev/null
+    note: Docker
+  npx:
+    check: npx --version 2>/dev/null
+    note: Node package runner (MCP servers)
+  python3:
+    check: python3 --version 2>/dev/null
+    note: Python 3
+  jq:
+    check: jq --version 2>/dev/null
+    note: JSON processor
+  curl:
+    check: curl --version 2>/dev/null
+    note: HTTP client
+llms:
+  anthropic:
+    env:
+      - ANTHROPIC_API_KEY
+    check: '[[ -n "$ANTHROPIC_API_KEY" ]]'
+    config: config/blackbox-agents.yaml
+  openai:
+    env:
+      - OPENAI_API_KEY
+    check: '[[ -n "$OPENAI_API_KEY" ]]'
+    config: config/blackbox-agents.yaml
+  gemini:
+    env:
+      - GOOGLE_API_KEY
+      - GEMINI_API_KEY
+    check: '[[ -n "${GOOGLE_API_KEY:-$GEMINI_API_KEY}" ]]'
+    config: config/blackbox-agents.yaml
+  vertex_ai:
+    env:
+      - GOOGLE_APPLICATION_CREDENTIALS
+      - GOOGLE_CLOUD_PROJECT
+    check:
+      '[[ -n "$GOOGLE_APPLICATION_CREDENTIALS" ]] && [[ -f "${GOOGLE_APPLICATION_CREDENTIALS:-}"
+      ]]'
+    config: config/inference-models.yaml
+  google:
+    env:
+      - GOOGLE_API_KEY
+    check: '[[ -n "$GOOGLE_API_KEY" ]]'
+    config: config/blackbox-agents.yaml
+  blackbox:
+    env:
+      - BLACKBOX_API_KEY
+    check: '[[ -n "$BLACKBOX_API_KEY" ]]'
+    config: config/blackbox-agents.yaml
+  xai:
+    env:
+      - XAI_API_KEY
+    check: '[[ -n "$XAI_API_KEY" ]]'
+    config: config/blackbox-agents.yaml
+  huggingface:
+    env:
+      - HF_TOKEN
+    check: '[[ -n "$HF_TOKEN" ]]'
+    config: config/inference-models.yaml
+agents:
+  - config-orchestrator-agent
+  - master-orchestrator
+  - platform-architect
+  - linear-buildout-agent
+  - platform-notifications-agent
+  - slack-config-agent
+  - knowledge-graph-builder
+  - entity-extractor
+  - cto-auditor
+  - rico-analyzer
+  - case-analyst
+  - damages-modeler
+  - evaluator-swarm
+  - privilege-scanner
+  - filing-generator
+  - document-classifier
+  - timeline-builder
+  - email-analyzer
+  - evidence-processor
+  - deposition-planner
+  - contract-analyst
+  - timeline-webapp
+  - reverse-verifier
+  - orchestrator
+  - master-intelligence

@@ -1,0 +1,343 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# LitigationForce.AI — LLM Inference Model Catalog
+# Full 397-model registry from master application (last updated 2026-02-05)
+# With litigation use-case auto-suggestion tags
+# ═══════════════════════════════════════════════════════════════════════════════
+
+catalog_version: "2026-02-05"
+total_models: 397
+
+# ─── Litigation Use-Case Auto-Suggestions ────────────────────────────────────
+# Maps each litigation function to recommended inference models, ranked by
+# suitability. The client's suggest_models() method uses these mappings.
+
+litigation_suggestions:
+
+  rico_analysis:
+    description: "RICO predicate act identification, pattern analysis, enterprise mapping"
+    tier_1:  # Best for complex legal reasoning
+      - claude-opus-4.6
+      - claude-sonnet-4.6
+      - o3-pro
+      - gpt-5.2-codex
+    tier_2:  # Strong alternatives
+      - claude-opus-4.5
+      - gpt-5-pro
+      - gemini-2.5-pro
+      - deepseek-r1-0528
+    tier_3:  # Budget / fast
+      - claude-sonnet-4.5
+      - gpt-5
+      - gemini-3-pro-preview
+
+  contract_analysis:
+    description: "Breach, formation, defenses, UCC vs common law"
+    tier_1:
+      - claude-opus-4.6
+      - claude-sonnet-4.6
+      - gpt-5.2-codex
+    tier_2:
+      - claude-opus-4.5
+      - gpt-5-pro
+      - gemini-2.5-pro
+      - qwen3-235b-a22b
+    tier_3:
+      - claude-sonnet-4.5
+      - mistral-large-2512
+      - deepseek-chat-v3.1
+
+  discovery:
+    description: "ESI preservation, TAR, custodian ID, proportionality, FRCP 26(b)(1)"
+    tier_1:
+      - claude-opus-4.6
+      - gpt-5.2-codex
+      - gemini-3-pro-preview
+    tier_2:
+      - claude-sonnet-4.6
+      - gpt-5
+      - gemini-2.5-pro
+    tier_3:
+      - gemini-2.5-flash
+      - gpt-5-mini
+      - claude-sonnet-4.5
+
+  privilege:
+    description: "Attorney-client privilege, work product, FRE 502, waiver risk"
+    tier_1:  # Requires highest accuracy — conservative classification
+      - claude-opus-4.6
+      - o3-pro
+      - claude-opus-4.5
+    tier_2:
+      - claude-sonnet-4.6
+      - gpt-5.2-codex
+      - gemini-2.5-pro
+    tier_3:
+      - claude-sonnet-4.5
+      - gpt-5
+
+  trade_secret:
+    description: "UTSA/DTSA misappropriation, injunctive relief, TRO"
+    tier_1:
+      - claude-opus-4.6
+      - claude-sonnet-4.6
+      - gpt-5.2-codex
+    tier_2:
+      - claude-opus-4.5
+      - gpt-5-pro
+      - gemini-2.5-pro
+    tier_3:
+      - claude-sonnet-4.5
+      - deepseek-r1-0528
+
+  fraud:
+    description: "Rule 9(b) particularity, scienter, reliance"
+    tier_1:
+      - claude-opus-4.6
+      - o3-pro
+      - gpt-5.2-codex
+    tier_2:
+      - claude-sonnet-4.6
+      - claude-opus-4.5
+      - deepseek-r1-0528
+    tier_3:
+      - gpt-5
+      - gemini-2.5-pro
+
+  damages:
+    description: "Before-and-after, yardstick, lost profits, treble RICO"
+    tier_1:  # Strong at numerical reasoning
+      - gpt-5.2-codex
+      - claude-opus-4.6
+      - o3
+    tier_2:
+      - gpt-5-pro
+      - claude-sonnet-4.6
+      - gemini-2.5-pro
+    tier_3:
+      - gpt-5
+      - deepseek-v3.2
+
+  deposition:
+    description: "Witness prep, 30(b)(6), impeachment, topic outlines"
+    tier_1:
+      - claude-opus-4.6
+      - claude-sonnet-4.6
+    tier_2:
+      - gpt-5.2-codex
+      - gemini-2.5-pro
+      - claude-opus-4.5
+    tier_3:
+      - gpt-5
+      - claude-sonnet-4.5
+
+  defense:
+    description: "Affirmative defenses, counterclaims, third-party claims"
+    tier_1:
+      - claude-opus-4.6
+      - claude-sonnet-4.6
+      - gpt-5.2-codex
+    tier_2:
+      - claude-opus-4.5
+      - o3
+      - deepseek-r1-0528
+    tier_3:
+      - gpt-5
+      - gemini-2.5-pro
+
+  motion:
+    description: "Motion drafting, legal standards, argument construction"
+    tier_1:
+      - claude-opus-4.6
+      - claude-sonnet-4.6
+      - gpt-5.2-codex
+    tier_2:
+      - claude-opus-4.5
+      - o3-pro
+      - gpt-5-pro
+    tier_3:
+      - gpt-5
+      - gemini-2.5-pro
+
+  expert_witness:
+    description: "Daubert analysis, expert disciplines, report requirements"
+    tier_1:
+      - claude-opus-4.6
+      - gpt-5.2-codex
+    tier_2:
+      - claude-sonnet-4.6
+      - gemini-2.5-pro
+      - o3
+    tier_3:
+      - claude-opus-4.5
+      - gpt-5
+
+  timeline:
+    description: "Event reconstruction, gap analysis, evidence linking"
+    tier_1:
+      - gpt-5.2-codex
+      - claude-opus-4.6
+      - gemini-3-pro-preview
+    tier_2:
+      - claude-sonnet-4.6
+      - gemini-2.5-pro
+    tier_3:
+      - gpt-5
+      - deepseek-v3.2
+
+  network_analysis:
+    description: "Entity/conspiracy mapping, knowledge graph, betweenness centrality"
+    tier_1:
+      - gpt-5.2-codex
+      - claude-opus-4.6
+      - gemini-3-pro-preview
+    tier_2:
+      - claude-sonnet-4.6
+      - deepseek-v3.2
+      - gpt-5-pro
+    tier_3:
+      - gemini-2.5-pro
+      - qwen3-235b-a22b
+
+  financial:
+    description: "Transaction patterns, asset discovery, shell companies, forensic accounting"
+    tier_1:
+      - gpt-5.2-codex
+      - claude-opus-4.6
+      - o3
+    tier_2:
+      - gpt-5-pro
+      - claude-sonnet-4.6
+      - deepseek-v3.2
+    tier_3:
+      - gpt-5
+      - gemini-2.5-pro
+
+  settlement:
+    description: "BATNA/WATNA, settlement range, mediation strategy"
+    tier_1:
+      - claude-opus-4.6
+      - claude-sonnet-4.6
+    tier_2:
+      - gpt-5.2-codex
+      - gemini-2.5-pro
+      - o3
+    tier_3:
+      - claude-opus-4.5
+      - gpt-5
+
+  compliance:
+    description: "GDPR, CCPA, ISO 42001, ABA Model Rules"
+    tier_1:
+      - claude-opus-4.6
+      - claude-sonnet-4.6
+      - gpt-5.2-codex
+    tier_2:
+      - gemini-2.5-pro
+      - claude-opus-4.5
+    tier_3:
+      - gpt-5
+      - mistral-large-2512
+
+  document_review:
+    description: "Classification, privilege tagging, relevance scoring (high volume)"
+    tier_1:  # Fast + accurate for bulk
+      - gemini-3-pro-preview
+      - gemini-2.5-flash
+      - claude-sonnet-4.6
+    tier_2:
+      - gpt-5-mini
+      - claude-haiku-4.5
+      - gemini-2.5-flash-lite
+    tier_3:  # Budget bulk processing
+      - gemini-2.0-flash-001
+      - gpt-5-nano
+      - claude-3.5-haiku
+
+  evidence_ingest:
+    description: "OCR, metadata extraction, deduplication, chain of custody"
+    tier_1:
+      - gemini-3-pro-preview
+      - gpt-5.2-codex
+      - claude-sonnet-4.6
+    tier_2:
+      - gemini-2.5-pro
+      - gpt-5
+    tier_3:
+      - gemini-2.5-flash
+      - gpt-5-mini
+
+  deep_research:
+    description: "Legal research, case law, multi-step reasoning"
+    tier_1:
+      - o3-deep-research
+      - o4-mini-deep-research
+      - sonar-deep-research
+      - claude-opus-4.6
+    tier_2:
+      - o3-pro
+      - perplexity/sonar-pro
+      - gpt-5.2-codex
+    tier_3:
+      - sonar-reasoning-pro
+      - deepseek-r1-0528
+
+# ─── Top Models for Litigation (curated from 397) ───────────────────────────
+
+top_litigation_models:
+
+  # -- Tier S: Flagship reasoning models --
+  anthropic:
+    - { id: claude-opus-4.6,    tier: S, strengths: [legal_reasoning, structured_output, nuanced_analysis] }
+    - { id: claude-sonnet-4.6,  tier: S, strengths: [fast_reasoning, legal_analysis, balanced] }
+    - { id: claude-opus-4.5,    tier: A, strengths: [complex_reasoning, legal_analysis] }
+    - { id: claude-sonnet-4.5,  tier: A, strengths: [general_purpose, fast] }
+    - { id: claude-opus-4.1,    tier: A, strengths: [reasoning] }
+    - { id: claude-opus-4,      tier: B, strengths: [reasoning] }
+    - { id: claude-sonnet-4,    tier: B, strengths: [fast, general] }
+    - { id: claude-haiku-4.5,   tier: C, strengths: [ultra_fast, bulk_processing, triage] }
+    - { id: claude-3.5-haiku,   tier: C, strengths: [bulk, budget] }
+
+  openai:
+    - { id: gpt-5.2-codex,     tier: S, strengths: [code_generation, structured_data, schema_validation] }
+    - { id: gpt-5.2-pro,       tier: S, strengths: [reasoning, analysis] }
+    - { id: gpt-5-pro,         tier: A, strengths: [reasoning] }
+    - { id: gpt-5,             tier: A, strengths: [general_purpose] }
+    - { id: gpt-5-mini,        tier: B, strengths: [fast, budget] }
+    - { id: gpt-5-nano,        tier: C, strengths: [ultra_fast, triage] }
+    - { id: o3-pro,            tier: S, strengths: [deep_reasoning, complex_analysis] }
+    - { id: o3,                tier: A, strengths: [reasoning] }
+    - { id: o3-deep-research,  tier: S, strengths: [legal_research, multi_step] }
+    - { id: o4-mini,           tier: B, strengths: [fast_reasoning] }
+    - { id: o4-mini-high,      tier: A, strengths: [reasoning, fast] }
+    - { id: gpt-4.1,           tier: B, strengths: [legacy_compatible] }
+
+  google:
+    - { id: gemini-3-pro-preview, tier: S, strengths: [large_context, document_analysis, speed] }
+    - { id: gemini-2.5-pro,       tier: A, strengths: [reasoning, multimodal] }
+    - { id: gemini-2.5-flash,     tier: B, strengths: [fast, bulk_processing] }
+    - { id: gemini-2.5-flash-lite, tier: C, strengths: [ultra_fast, triage] }
+    - { id: gemini-3-flash-preview, tier: B, strengths: [fast, new_gen] }
+
+  deepseek:
+    - { id: deepseek-r1-0528,     tier: A, strengths: [reasoning, open_source, budget] }
+    - { id: deepseek-v3.2,        tier: B, strengths: [general, fast, budget] }
+    - { id: deepseek-chat-v3.1,   tier: B, strengths: [general, budget] }
+
+  mistral:
+    - { id: mistral-large-2512,   tier: B, strengths: [european_law, multilingual, general] }
+    - { id: codestral-2508,       tier: B, strengths: [code_generation] }
+    - { id: mistral-medium-3.1,   tier: B, strengths: [balanced] }
+
+  perplexity:
+    - { id: sonar-deep-research,  tier: A, strengths: [legal_research, web_search, citations] }
+    - { id: sonar-pro,            tier: B, strengths: [research, citations] }
+    - { id: sonar-reasoning-pro,  tier: A, strengths: [reasoning, research] }
+
+  qwen:
+    - { id: qwen3-235b-a22b,     tier: B, strengths: [large_model, multilingual, reasoning] }
+    - { id: qwen3-coder,         tier: B, strengths: [code, structured_output] }
+
+  x_ai:
+    - { id: grok-4,              tier: A, strengths: [reasoning, general] }
+    - { id: grok-4-fast,         tier: B, strengths: [fast, general] }
+    - { id: grok-code-fast-1,    tier: C, strengths: [code, free_tier] }

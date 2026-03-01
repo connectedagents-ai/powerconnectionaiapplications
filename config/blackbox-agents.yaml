@@ -1,0 +1,228 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# LitigationForce.AI — Blackbox Cloud Agent Configuration
+# Maps all 18+ litigation agents to Blackbox multi-agent presets and models
+# ═══════════════════════════════════════════════════════════════════════════════
+
+api:
+  base_url: "https://cloud.blackbox.ai"
+  tasks_endpoint: "/api/tasks"
+  poll_interval_seconds: 8
+  max_poll_duration_seconds: 900
+  max_task_duration_seconds: 300
+
+# ─── Available Blackbox Models ───────────────────────────────────────────────
+
+models:
+  claude:
+    - id: "blackboxai/anthropic/claude-sonnet-4.5"
+      description: "Latest Sonnet (Recommended)"
+      strengths: ["complex reasoning", "legal analysis", "structured output"]
+    - id: "blackboxai/anthropic/claude-sonnet-4"
+      description: "Sonnet 4"
+    - id: "blackboxai/anthropic/claude-opus-4.5"
+      description: "Most capable Claude"
+      strengths: ["highest quality", "nuanced analysis", "RICO pattern recognition"]
+
+  blackbox:
+    - id: "blackboxai/blackbox-pro"
+      description: "BLACKBOX PRO (Recommended)"
+      strengths: ["code generation", "fast execution"]
+    - id: "blackboxai/anthropic/claude-sonnet-4.5"
+      description: "Claude via BLACKBOX"
+    - id: "blackboxai/openai/gpt-5.2-codex"
+      description: "GPT-5.2 Codex via BLACKBOX"
+    - id: "blackboxai/anthropic/claude-opus-4.5"
+      description: "Claude Opus via BLACKBOX"
+    - id: "blackboxai/x-ai/grok-code-fast-1:free"
+      description: "Grok Code (Free tier)"
+    - id: "blackboxai/google/gemini-2.5-pro"
+      description: "Gemini via BLACKBOX"
+
+  codex:
+    - id: "gpt-5.2-codex"
+      description: "GPT-5.2 Codex (Recommended)"
+      strengths: ["code generation", "structured data", "schema validation"]
+    - id: "openai/gpt-5"
+      description: "GPT-5"
+    - id: "openai/gpt-5-mini"
+      description: "GPT-5 Mini"
+    - id: "openai/gpt-5-nano"
+      description: "GPT-5 Nano"
+    - id: "openai/gpt-4.1"
+      description: "GPT-4.1"
+
+  gemini:
+    - id: "gemini-2.0-flash-exp"
+      description: "Gemini 2.0 Flash (Recommended)"
+      strengths: ["fast processing", "large context", "document analysis"]
+    - id: "gemini-2.5-pro"
+      description: "Gemini 2.5 Pro"
+    - id: "gemini-2.5-flash"
+      description: "Gemini 2.5 Flash"
+
+# ─── Agent Presets (optimized for litigation task types) ─────────────────────
+
+presets:
+  diverse:
+    description: "3 different agents for broad perspective"
+    agents:
+      - { agent: claude, model: "blackboxai/anthropic/claude-sonnet-4.5" }
+      - { agent: codex, model: "gpt-5.2-codex" }
+      - { agent: gemini, model: "gemini-2.5-pro" }
+
+  thorough:
+    description: "4 agents for critical legal analysis"
+    agents:
+      - { agent: claude, model: "blackboxai/anthropic/claude-opus-4.5" }
+      - { agent: claude, model: "blackboxai/anthropic/claude-sonnet-4.5" }
+      - { agent: codex, model: "gpt-5.2-codex" }
+      - { agent: blackbox, model: "blackboxai/blackbox-pro" }
+
+  max_coverage:
+    description: "5 agents for highest-stakes decisions"
+    agents:
+      - { agent: claude, model: "blackboxai/anthropic/claude-opus-4.5" }
+      - { agent: claude, model: "blackboxai/anthropic/claude-sonnet-4.5" }
+      - { agent: codex, model: "gpt-5.2-codex" }
+      - { agent: gemini, model: "gemini-2.5-pro" }
+      - { agent: blackbox, model: "blackboxai/blackbox-pro" }
+
+  rico_focused:
+    description: "Optimized for RICO pattern analysis"
+    agents:
+      - { agent: claude, model: "blackboxai/anthropic/claude-opus-4.5" }
+      - { agent: codex, model: "gpt-5.2-codex" }
+      - { agent: blackbox, model: "blackboxai/blackbox-pro" }
+
+  discovery_focused:
+    description: "Optimized for ESI/TAR/discovery"
+    agents:
+      - { agent: claude, model: "blackboxai/anthropic/claude-sonnet-4.5" }
+      - { agent: gemini, model: "gemini-2.5-pro" }
+      - { agent: codex, model: "gpt-5.2-codex" }
+
+  financial_focused:
+    description: "Optimized for financial/damages analysis"
+    agents:
+      - { agent: codex, model: "gpt-5.2-codex" }
+      - { agent: claude, model: "blackboxai/anthropic/claude-opus-4.5" }
+      - { agent: blackbox, model: "blackboxai/blackbox-pro" }
+
+  quick:
+    description: "2 fast agents for triage/preliminary"
+    agents:
+      - { agent: gemini, model: "gemini-2.0-flash-exp" }
+      - { agent: blackbox, model: "blackboxai/blackbox-pro" }
+
+  budget:
+    description: "2 free/low-cost agents"
+    agents:
+      - { agent: blackbox, model: "blackboxai/x-ai/grok-code-fast-1:free" }
+      - { agent: gemini, model: "gemini-2.0-flash-exp" }
+
+# ─── Litigation Agent Catalog (18+ agents, 6 clusters) ──────────────────────
+
+agent_clusters:
+  document_intelligence:
+    phase: "phase_1_foundation"
+    agents:
+      - id: "agent_1.1"
+        name: "OCR & Text Extraction"
+        recommended_preset: quick
+      - id: "agent_1.2"
+        name: "Document Classification"
+        recommended_preset: diverse
+      - id: "agent_1.3"
+        name: "Metadata Enrichment"
+        recommended_preset: quick
+      - id: "agent_1.4"
+        name: "Deduplication & Consolidation"
+        recommended_preset: quick
+
+  entity_relationship:
+    phase: "phase_2_advanced"
+    agents:
+      - id: "agent_2.1"
+        name: "Named Entity Recognition"
+        recommended_preset: diverse
+      - id: "agent_2.2"
+        name: "Knowledge Graph Builder"
+        recommended_preset: thorough
+
+  legal_analysis:
+    phase: "phase_2_advanced"
+    agents:
+      - id: "agent_3.1"
+        name: "RICO Pattern Recognition"
+        recommended_preset: rico_focused
+      - id: "agent_3.2"
+        name: "Legal Research"
+        recommended_preset: thorough
+
+  financial_analysis:
+    phase: "phase_2_advanced"
+    agents:
+      - id: "agent_4.1"
+        name: "Transaction Pattern Detection"
+        recommended_preset: financial_focused
+      - id: "agent_4.2"
+        name: "Asset Discovery"
+        recommended_preset: financial_focused
+      - id: "agent_4.3"
+        name: "Damages Calculation"
+        recommended_preset: financial_focused
+
+  communication_analysis:
+    phase: "phase_2_advanced"
+    agents:
+      - id: "agent_5.1"
+        name: "Email Threading"
+        recommended_preset: discovery_focused
+      - id: "agent_5.2"
+        name: "Sentiment & Intent"
+        recommended_preset: diverse
+
+  evidence_compliance:
+    phase: "phase_1_foundation"
+    agents:
+      - id: "agent_6.1"
+        name: "Chain of Custody"
+        recommended_preset: quick
+      - id: "agent_6.2"
+        name: "Privilege Detection"
+        recommended_preset: thorough
+      - id: "agent_6.3"
+        name: "Data Validation"
+        recommended_preset: quick
+      - id: "agent_6.4"
+        name: "Security Guardian"
+        recommended_preset: quick
+
+  orchestration:
+    phase: "all"
+    agents:
+      - id: "agent_7.0"
+        name: "Master Coordination"
+        recommended_preset: max_coverage
+
+# ─── Analysis Type → Preset Mapping ─────────────────────────────────────────
+
+analysis_defaults:
+  rico: { preset: rico_focused, track: federal_rico }
+  contract: { preset: diverse, track: california }
+  discovery: { preset: discovery_focused, track: all_tracks }
+  privilege: { preset: thorough, track: all_tracks }
+  trade_secret: { preset: diverse, track: texas_state }
+  fraud: { preset: thorough, track: california }
+  damages: { preset: financial_focused, track: all_tracks }
+  deposition: { preset: diverse, track: all_tracks }
+  defense: { preset: thorough, track: all_tracks }
+  counterclaim: { preset: diverse, track: all_tracks }
+  motion: { preset: thorough, track: all_tracks }
+  expert_witness: { preset: thorough, track: all_tracks }
+  timeline: { preset: diverse, track: all_tracks }
+  network_analysis: { preset: thorough, track: all_tracks }
+  financial: { preset: financial_focused, track: all_tracks }
+  settlement: { preset: diverse, track: all_tracks }
+  compliance: { preset: diverse, track: all_tracks }
+  case_assessment: { preset: max_coverage, track: all_tracks }
