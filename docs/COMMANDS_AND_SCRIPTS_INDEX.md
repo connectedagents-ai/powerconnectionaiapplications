@@ -25,14 +25,16 @@
 
 ## 2. Route, sync, propagation
 
-| Script                              | When to use                                                                                                                      | Doc                        |
-| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| route-constitution-to-repos.sh      | After constitution/checklist/universal/bootstrap change                                                                          | NEVER_MISS §2, §3          |
-| sync-all-repos-and-review.sh        | After doc/config change; weekly; before commit when master changed                                                               | NEVER_MISS §2, §3          |
-| sync-and-push-all-repos.sh          | Real-time sync: route + sync + commit and push in each child. Runs on every push (pre-push hook). Optional: --no-push, --dry-run | REALTIME_SYNC_ALL_REPOS.md |
-| sync-dev-tools-repos-from-config.sh | After adding repo to config/repos.yaml; Claude Code/Codex same roots                                                             | NEVER_MISS §2              |
-| sync-canonical-mcp-connectors.py    | Immediately after editing canonical-mcp-connectors.yaml                                                                          | NEVER_MISS §2              |
-| push-to-claude-code-and-codex.sh    | Sync + optional launch Claude Code or print Codex commands                                                                       | MASTER_INDEX; CLAUDE.md    |
+| Script                                                              | When to use                                                                                                                      | Doc                                                                                                    |
+| ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| route-constitution-to-repos.sh                                      | After constitution/checklist/universal/bootstrap change                                                                          | NEVER_MISS §2, §3                                                                                      |
+| sync-all-repos-and-review.sh                                        | After doc/config change; weekly; before commit when master changed                                                               | NEVER_MISS §2, §3                                                                                      |
+| sync-and-push-all-repos.sh                                          | Real-time sync: route + sync + commit and push in each child. Runs on every push (pre-push hook). Optional: --no-push, --dry-run | REALTIME_SYNC_ALL_REPOS.md                                                                             |
+| sync-dev-tools-repos-from-config.sh                                 | After adding repo to config/repos.yaml; Claude Code/Codex same roots                                                             | NEVER_MISS §2                                                                                          |
+| sync-canonical-mcp-connectors.py                                    | Immediately after editing canonical-mcp-connectors.yaml                                                                          | NEVER_MISS §2                                                                                          |
+| push-to-claude-code-and-codex.sh                                    | Sync + optional launch Claude Code or print Codex commands                                                                       | MASTER_INDEX; CLAUDE.md                                                                                |
+| one-repo-commit-push-and-align.sh [--dry-run \| --yes \| --no-push] | Beginner: commit key paths, push, sync workspace, copy handoff; prompts unless --yes                                             | BEGINNER_ONE_REPO_COMMIT_PUSH_AND_DEVTOOLS_ALIGN                                                       |
+| check-one-repo-and-credentials-alignment.sh                         | Read-only: verify current folder is one repo; list where to revise APIs/SDKs/credentials/IDEs                                    | BEGINNER_ONE_REPO_COMMIT_PUSH_AND_DEVTOOLS_ALIGN; ONE_REPO_LOGS_CLEANUP_ORGANIZE_GITHUB_DEVTOOLS_INDEX |
 
 ---
 
@@ -55,6 +57,7 @@
 | run-super-agent-full-auto.sh [--full-review] [--commit]   | **No manual required:** ask+gather → Cursor leg → compile-and-approve; optional Full Review first and optional commit                                 | SUPER_AGENT_ASK_AND_COMPILATION.md §4; memorialized doc §4 Integration instructions           |
 | run-apis-credentials-audit.sh                             | APIs/tokens/credentials audit step-by-step (baseline + op run, write result); --json                                                                  | audits/APIS_TOKENS_CREDENTIALS_SETUP_AND_TEST_AUDIT.md                                        |
 | run-apis-credentials-self-improvement.sh [--vault VAULT]  | Run audit + integrate dry-run + 1P check; append last-run to self-improvement report                                                                  | audits/SELF_IMPROVEMENT_REPORT_APIS_CREDENTIALS_AND_1PASSWORD.md                              |
+| run-github-deep-audit.sh [--with-env]                     | Phase Zero: read-only GitHub security/settings audit (repos, collaborators, branch protection, 2FA); report to data/audits/github-deep-audit          | GITHUB_DEEP_AUDIT_PHASE_ZERO.md                                                               |
 | verify-routing.sh                                         | Routing verification                                                                                                                                  | run-all-verifications                                                                         |
 | verify-platform-connections.sh                            | Platform connections check                                                                                                                            | verify-all-connections                                                                        |
 | verify-env-example-sync.sh                                | .env.example sync                                                                                                                                     | run-all-verifications                                                                         |
@@ -84,38 +87,44 @@
 | search-1password-for-mcp.sh                                                                       | Search 1P for MCP                                                                                                                         | MCP setup                                                                        |
 | add-firecrawl-to-1password-devops.sh                                                              | Add Firecrawl to 1P DevOps                                                                                                                | One-off                                                                          |
 | add-godaddy-login-to-1password.sh                                                                 | Add GoDaddy to 1P                                                                                                                         | One-off                                                                          |
+| push-and-copy-handoff-to-dev-tools.sh [--push]                                                    | Check access (gh, op); sync workspace; copy handoff to data/exports for Gemini; optional git commit and push                              | WHAT_TO_PUSH_AND_COPY_TO_DEV_TOOLS_AND_GEMINI.md                                 |
+| run-zoom-remove-note-takers.sh [--visible \| --headless]                                          | Remove Zoom note takers (Clapp AI, Read.ai); login from 1Password; archive to data/archives/zoom-account-archives                         | ZOOM_NOTE_TAKERS_REMOVAL.md                                                      |
+| run-omni-token-discovery.sh [--with-env]                                                          | Find all dev/AI accounts and API keys (HF, GCP, Figma, Replit, Lovable, etc.); report to data/audits/omni-token-discovery                 | OMNI_TOKEN_DISCOVERY_AND_SSOT.md                                                 |
 
 ---
 
 ## 5. MCP, Docker, dev tools
 
-| Script                               | When to use                            | Doc                                   |
-| ------------------------------------ | -------------------------------------- | ------------------------------------- |
-| add-one-wish-agent-mcp.sh            | Add One Wish Agent MCP                 | MCP_CONNECT_ONE_WISH_AGENT_EVERYWHERE |
-| configure-docker-mcp.sh              | Configure Docker MCP                   | activate-all-dev-tools                |
-| setup-mcp-with-1password.sh          | Setup MCP with 1Password               | MCP setup                             |
-| activate-all-dev-tools-and-docker.sh | Activate all dev tools and Docker      | NEVER_MISS; audits                    |
-| setup-dev-environment.sh             | Setup dev environment                  | BEGINNER_SETUP                        |
-| setup-github-code-review.sh          | Setup GitHub code review               | Repo governance                       |
-| install-git-hooks.sh                 | Install git hooks                      | Pre-commit                            |
-| pre-commit-check-no-secrets.sh       | Pre-commit no secrets                  | run-all-verifications                 |
-| launch-ai-with-op.sh                 | Launch Claude/Codex with 1Password env | push-to-claude-code                   |
+| Script                               | When to use                                                                                                          | Doc                                   |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| add-one-wish-agent-mcp.sh            | Add One Wish Agent MCP                                                                                               | MCP_CONNECT_ONE_WISH_AGENT_EVERYWHERE |
+| configure-docker-mcp.sh              | Configure Docker MCP                                                                                                 | activate-all-dev-tools                |
+| setup-mcp-with-1password.sh          | Setup MCP with 1Password                                                                                             | MCP setup                             |
+| activate-all-dev-tools-and-docker.sh | Activate all dev tools and Docker                                                                                    | NEVER_MISS; audits                    |
+| setup-dev-environment.sh             | Setup dev environment                                                                                                | BEGINNER_SETUP                        |
+| setup-github-code-review.sh          | Setup GitHub code review                                                                                             | Repo governance                       |
+| install-git-hooks.sh                 | Install git hooks                                                                                                    | Pre-commit                            |
+| pre-commit-check-no-secrets.sh       | Pre-commit no secrets                                                                                                | run-all-verifications                 |
+| launch-ai-with-op.sh                 | Launch Claude/Codex with 1Password env                                                                               | push-to-claude-code                   |
+| run-connector-signup-agent.sh        | HTTP/browser agent to sign up for a connector (config: config/connector-signup-agent.yaml; env: CONNECTOR*SIGNUP*\*) | connector-signup-agent.yaml           |
 
 ---
 
 ## 6. Repos, merge, archive, sync
 
-| Script                                     | When to use                                                                  | Doc                                     |
-| ------------------------------------------ | ---------------------------------------------------------------------------- | --------------------------------------- |
-| sync-git-repos.sh                          | Sync git repos                                                               | Repo sync                               |
-| merge-repo-into-target.sh                  | Merge repo into target                                                       | CONSOLIDATION                           |
-| archive-repo.sh                            | Archive repo                                                                 | CONSOLIDATION                           |
-| delete-duplicate-repos-from-source-orgs.sh | Delete duplicate repos                                                       | GitHub cleanup                          |
-| transfer-repos-to-connectedagents-ai.sh    | Transfer repos to org                                                        | GitHub consolidation                    |
-| add-code-review-to-repos.sh                | Add code review to repos                                                     | Repo governance                         |
-| sync-graphql-integration.sh                | Sync GraphQL                                                                 | Integrations                            |
-| sync-notion-to-repo.sh                     | Sync Notion to repo                                                          | Integrations                            |
-| generate-fleet-inventory.sh                | Generate \_scan/out/FLEET_INVENTORY.md from config/repos.yaml and GitHub API | FLEET_INVENTORY_AND_SCAN_OUT; WHAT_ELSE |
+| Script                                      | When to use                                                                  | Doc                                     |
+| ------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------- |
+| sync-git-repos.sh                           | Sync git repos                                                               | Repo sync                               |
+| merge-repo-into-target.sh                   | Merge repo into target                                                       | CONSOLIDATION                           |
+| archive-repo.sh                             | Archive repo                                                                 | CONSOLIDATION                           |
+| delete-duplicate-repos-from-source-orgs.sh  | Delete duplicate repos                                                       | GitHub cleanup                          |
+| transfer-repos-to-connectedagents-ai.sh     | Transfer repos to org                                                        | GitHub consolidation                    |
+| add-code-review-to-repos.sh                 | Add code review to repos                                                     | Repo governance                         |
+| sync-graphql-integration.sh                 | Sync GraphQL                                                                 | Integrations                            |
+| sync-notion-to-repo.sh                      | Sync Notion to repo                                                          | Integrations                            |
+| generate-fleet-inventory.sh                 | Generate \_scan/out/FLEET_INVENTORY.md from config/repos.yaml and GitHub API | FLEET_INVENTORY_AND_SCAN_OUT; WHAT_ELSE |
+| compare-onewishos-with-connectedagents.sh   | Diff key files/dirs between this repo and Connectedagentsrepo1; report       | ONEWISHOS_REPO_INTEGRATION_PLAN         |
+| integrate-onewishos-from-connectedagents.sh | Copy onewishos/, CodeAppDocs-style content, tools→scripts, workflows         | ONEWISHOS_REPO_INTEGRATION_PLAN         |
 
 ---
 
@@ -167,6 +176,29 @@
 | check-platform-status.sh             | Check platform status                                                           | Status                        |
 | archive-credentials-for-fresh-dev.sh | Archive credentials for fresh dev                                               | Dev setup                     |
 | download-tax-forms-for-options.sh    | Download tax forms                                                              | One-off                       |
+
+---
+
+## 11. Calendar Unified (Google, Microsoft, Apple, CRM/agents)
+
+| Script                                      | When to use                                                                | Doc                                        |
+| ------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------ |
+| calendar-unified/scripts/setup-all.sh       | One-time install for Option 1, 2, 3; create config from examples           | calendar-unified/README.md                 |
+| calendar-unified/scripts/run-option-1.sh    | Start unified calendar API (single REST API for Google/Microsoft/CalDAV)   | calendar-unified/docs/ARCHITECTURE.md      |
+| calendar-unified/scripts/run-option-2.sh    | Run calendar sync once (sources → one destination); use cron for recurring | calendar-unified/docs/WHEN_TO_USE_WHICH.md |
+| calendar-unified/scripts/run-option-3.sh    | Start webhook hub (receive webhooks, normalize, forward to CRM/automation) | calendar-unified/docs/ARCHITECTURE.md      |
+| calendar-unified/scripts/config-from-env.sh | Refresh config from .env.calendar or 1Password (op run)                    | calendar-unified/README.md                 |
+| calendar-unified/scripts/validate-config.sh | Validate YAML configs and env for all three options                        | calendar-unified/README.md                 |
+
+---
+
+## 12. OneDrive / path length
+
+| Script                                              | When to use                                                                                               | Doc                                 |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| scripts/onedrive-path-fix/find-long-paths.sh        | Find files/folders with path length over limit (default 200); pass OneDrive root, optional --max-length N | ONEWISHOS_ONEDRIVE_PATH_FIX_PLAN.md |
+| scripts/onedrive-path-fix/shorten-onedrive-paths.py | Shorten folder names (hex truncation + abbreviations); --dry-run (default), --execute to apply            | ONEWISHOS_ONEDRIVE_PATH_FIX_PLAN.md |
+| scripts/onedrive-path-fix/run-ongoing-check.sh      | Weekly/cron: run find-long-paths, optional --report DIR to save timestamped report                        | ONEWISHOS_ONEDRIVE_PATH_FIX_PLAN.md |
 
 ---
 
