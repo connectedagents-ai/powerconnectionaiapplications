@@ -87,24 +87,35 @@
 
 **Cursor secrets for connectors:** See **docs/MCP_SECRETS_REFERENCE.md** §2 (LLM), §3 (CRM, Zoom, Google, Microsoft, Docker), §4 (Dev apps). Examples: Replit `replit.secret.ces.com`, Lovable `lovable.secret.ces.com`, Vercel/v0 `vercel.secret.ces.com`, Goose `goose.secret.ces.com`.
 
-| Connector                                                    | Env Vars                                                 | Category         |
-| ------------------------------------------------------------ | -------------------------------------------------------- | ---------------- |
-| google_cloud                                                 | `GOOGLE_APPLICATION_CREDENTIALS`, `GOOGLE_CLOUD_PROJECT` | Cloud            |
-| gemini_api                                                   | `GOOGLE_API_KEY`                                         | LLM              |
-| vertex_ai                                                    | `GOOGLE_APPLICATION_CREDENTIALS`, `GOOGLE_CLOUD_PROJECT` | LLM              |
-| google_developer                                             | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`               | OAuth            |
-| microsoft_copilot                                            | `MS_GRAPH_*`                                             | Microsoft        |
-| aws                                                          | `AWS_*`                                                  | Cloud            |
-| zoom                                                         | `ZOOM_API_KEY`, `ZOOM_API_SECRET`                        | Comms            |
-| egnyte                                                       | `EGNYTE_*`                                               | Storage          |
-| box                                                          | `BOX_*`                                                  | Storage          |
-| replit, lovable, huggingface, vercel, v0, framer             | (per tool)                                               | Vibe code        |
-| canva, adobe                                                 | `CANVA_*`, `ADOBE_*`                                     | Design           |
-| pipefy, zendesk, zoho                                        | `PIPEFY_*`, etc.                                         | Workflow         |
-| atlassian                                                    | `ATLASSIAN_API_TOKEN`, `ATLASSIAN_USER_EMAIL`            | Jira, Confluence |
-| clay, todoist, trello, okta                                  | `CLAY_*`, `TODOIST_*`, `TRELLO_*`, `OKTA_*`              | CRM, tasks, auth |
-| goose                                                        | `GOOSE_API_KEY`                                          | AI dev           |
-| relativity, everlaw, clio, spellbook, briefpoint, lexisnexis | (per tool)                                               | Legal            |
+| Connector                                                    | Env Vars                                                 | Category                                                                                                     |
+| ------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| google_cloud                                                 | `GOOGLE_APPLICATION_CREDENTIALS`, `GOOGLE_CLOUD_PROJECT` | Cloud                                                                                                        |
+| gemini_api                                                   | `GOOGLE_API_KEY`                                         | LLM                                                                                                          |
+| vertex_ai                                                    | `GOOGLE_APPLICATION_CREDENTIALS`, `GOOGLE_CLOUD_PROJECT` | LLM                                                                                                          |
+| google_developer                                             | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`               | OAuth                                                                                                        |
+| microsoft_copilot                                            | `MS_GRAPH_*`                                             | Microsoft                                                                                                    |
+| aws                                                          | `AWS_*`                                                  | Cloud                                                                                                        |
+| zoom                                                         | `ZOOM_API_KEY`, `ZOOM_API_SECRET`                        | Comms                                                                                                        |
+| egnyte                                                       | `EGNYTE_*`                                               | Storage                                                                                                      |
+| box                                                          | `BOX_*`                                                  | Storage                                                                                                      |
+| replit, lovable, huggingface, vercel, v0, framer             | (per tool)                                               | Vibe code                                                                                                    |
+| canva, adobe                                                 | `CANVA_*`, `ADOBE_*`                                     | Design                                                                                                       |
+| pipefy, zendesk, zoho                                        | `PIPEFY_*`, etc.                                         | Workflow                                                                                                     |
+| atlassian                                                    | `ATLASSIAN_API_TOKEN`, `ATLASSIAN_USER_EMAIL`            | Jira, Confluence                                                                                             |
+| clay, todoist, trello, okta                                  | `CLAY_*`, `TODOIST_*`, `TRELLO_*`, `OKTA_*`              | CRM, tasks, auth                                                                                             |
+| goose                                                        | `GOOSE_API_KEY`                                          | AI dev                                                                                                       |
+| relativity, everlaw, clio, spellbook, briefpoint, lexisnexis | (per tool)                                               | Legal                                                                                                        |
+| **browserbase**                                              | `BROWSERBASE_API_KEY`, `BROWSERBASE_PROJECT_ID`          | Serverless browser automation (schedule, webhook); see docs/ONEWISHOS_BROWSERBASE_FUNCTIONS_AND_USE_CASES.md |
+
+---
+
+## 4b. Serverless browser automation (Browserbase Functions)
+
+| Component       | 1Password   | Env Vars                                        | Purpose                                                                |
+| --------------- | ----------- | ----------------------------------------------- | ---------------------------------------------------------------------- |
+| **Browserbase** | Browserbase | `BROWSERBASE_API_KEY`, `BROWSERBASE_PROJECT_ID` | Deploy Playwright automation to cloud; invoke via schedule or webhook. |
+
+**CLI / SDK:** `pnpm dlx @browserbasehq/sdk-functions init <name>`; `pnpm bb dev index.ts` (local); `pnpm bb publish index.ts` (deploy). Invoke: `POST https://api.browserbase.com/v1/functions/<FUNCTION_ID>/invoke` with `x-bb-api-key` and JSON `params`. Full integration and **pre–OneWish OS use cases**: [ONEWISHOS_BROWSERBASE_FUNCTIONS_AND_USE_CASES.md](ONEWISHOS_BROWSERBASE_FUNCTIONS_AND_USE_CASES.md).
 
 ---
 
@@ -256,45 +267,47 @@ See **docs/AIRTABLE_SECRET_SETUP.md** for step-by-step setup.
 
 ## 10. Where Each Is Documented
 
-| Topic                                                     | Primary Doc                                   | Secondary                                              |
-| --------------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------ |
-| **This master list**                                      | `docs/MASTER_MCP_CONNECTORS_APIS.md`          | —                                                      |
-| **All MCP secrets**                                       | `docs/MCP_SECRETS_REFERENCE.md`               | Cursor secret names, env vars, 1Password for every MCP |
-| **Airtable secret**                                       | `docs/AIRTABLE_SECRET_SETUP.md`               | Cursor secret, MCP, 1Password, PAT                     |
-| **Goose setup**                                           | `docs/GOOSE_SETUP_AND_INTEGRATION.md`         | API key, 1Password, launch, master-mcp, connectors     |
-| **Sync trigger (add to all)**                             | `docs/MCP_CONNECTOR_SYNC_AND_TRIGGER.md`      | Canonical registry; sync script; add once → propagate  |
-| **Marketing & design (v0, Sentry, Canva, Figma, Framer)** | `docs/MARKETING_AND_DESIGN_CONNECTIONS.md`    | Node, Figma MCP, v0, Sentry, Canva, 1Password refs     |
-| Constitution                                              | `docs/constitution.md`                        | References this doc                                    |
-| 1Password → env                                           | `docs/PLATFORMS_1PASSWORD_MAPPING.md`         | `scripts/agent-1password-index-env.sh`                 |
-| Connectors                                                | `config/connectors.yaml`                      | —                                                      |
-| Platform connections                                      | `config/platform-connections.yaml`            | —                                                      |
-| Master MCP router                                         | `config/mcp-servers/master-mcp.yaml`          | —                                                      |
-| Cursor MCP config                                         | `config/mcp-servers/cursor-mcp-enhanced.json` | —                                                      |
-| Agent spec                                                | `.github/agents/my-agent.agent.md`            | `agents/my-agent.agent.md`                             |
-| Claude Code setup                                         | `CLAUDE.md`, `docs/DEV_TOOLS_RULES_SETUP.md`  | ~/.claude.json                                         |
-| Similar apps checklist                                    | `docs/SIMILAR_APPS_CONNECTION_CHECKLIST.md`   | —                                                      |
-| Cross-system index                                        | `docs/cross-system-index.md`                  | —                                                      |
-| **1Password / Mac alignment**                             | `docs/MCP_SECRETS_REFERENCE.md` §6            | Completeness vs vault + MAC_APP_INTEGRATION_AUDIT      |
-| **Constitution**                                          | `docs/constitution.md` §6, Cloud & Inference  | New capabilities; platform audit                       |
+| Topic                                                     | Primary Doc                                             | Secondary                                               |
+| --------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| **This master list**                                      | `docs/MASTER_MCP_CONNECTORS_APIS.md`                    | —                                                       |
+| **All MCP secrets**                                       | `docs/MCP_SECRETS_REFERENCE.md`                         | Cursor secret names, env vars, 1Password for every MCP  |
+| **Airtable secret**                                       | `docs/AIRTABLE_SECRET_SETUP.md`                         | Cursor secret, MCP, 1Password, PAT                      |
+| **Goose setup**                                           | `docs/GOOSE_SETUP_AND_INTEGRATION.md`                   | API key, 1Password, launch, master-mcp, connectors      |
+| **Sync trigger (add to all)**                             | `docs/MCP_CONNECTOR_SYNC_AND_TRIGGER.md`                | Canonical registry; sync script; add once → propagate   |
+| **Marketing & design (v0, Sentry, Canva, Figma, Framer)** | `docs/MARKETING_AND_DESIGN_CONNECTIONS.md`              | Node, Figma MCP, v0, Sentry, Canva, 1Password refs      |
+| **Browserbase Functions**                                 | `docs/ONEWISHOS_BROWSERBASE_FUNCTIONS_AND_USE_CASES.md` | Serverless browser automation; pre–OneWish OS use cases |
+| Constitution                                              | `docs/constitution.md`                                  | References this doc                                     |
+| 1Password → env                                           | `docs/PLATFORMS_1PASSWORD_MAPPING.md`                   | `scripts/agent-1password-index-env.sh`                  |
+| Connectors                                                | `config/connectors.yaml`                                | —                                                       |
+| Platform connections                                      | `config/platform-connections.yaml`                      | —                                                       |
+| Master MCP router                                         | `config/mcp-servers/master-mcp.yaml`                    | —                                                       |
+| Cursor MCP config                                         | `config/mcp-servers/cursor-mcp-enhanced.json`           | —                                                       |
+| Agent spec                                                | `.github/agents/my-agent.agent.md`                      | `agents/my-agent.agent.md`                              |
+| Claude Code setup                                         | `CLAUDE.md`, `docs/DEV_TOOLS_RULES_SETUP.md`            | ~/.claude.json                                          |
+| Similar apps checklist                                    | `docs/SIMILAR_APPS_CONNECTION_CHECKLIST.md`             | —                                                       |
+| Cross-system index                                        | `docs/cross-system-index.md`                            | —                                                       |
+| **1Password / Mac alignment**                             | `docs/MCP_SECRETS_REFERENCE.md` §6                      | Completeness vs vault + MAC_APP_INTEGRATION_AUDIT       |
+| **Constitution**                                          | `docs/constitution.md` §6, Cloud & Inference            | New capabilities; platform audit                        |
 
 ---
 
 ## 11. Recently Added (Complete)
 
-| Item       | Status                                                                                                                          | Env Var                           |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| Perplexity | ✅ connectors, MCP_MAP, platform-connections                                                                                    | `PERPLEXITY_API_KEY`              |
-| Genspark   | ✅ MCP_MAP (API TBD)                                                                                                            | `GENSPARK_API_KEY`                |
-| DuckDuckGo | ✅ connectors, MCP_MAP                                                                                                          | `DDG_API_KEY`                     |
-| Attio      | ✅ master-mcp connected_apps                                                                                                    | `ATTIO_API_KEY`                   |
-| Airtable   | ✅ master-mcp connected_apps                                                                                                    | `AIRTABLE_API_KEY`                |
-| Docker     | ✅ master-mcp connected_apps (MCP_DOCKER); mirrors cursor + master-mcp                                                          | `DOCKER_CONFIG`                   |
-| Brave      | ✅ master-mcp connected_apps                                                                                                    | `BRAVE_API_KEY`                   |
-| **Goose**  | ✅ connectors, platform-connections, master-mcp (external_llm + connected_apps), launch-ai-with-op, GOOSE_SETUP_AND_INTEGRATION | `GOOSE_API_KEY`                   |
-| **v0**     | ✅ platform-connections, canonical-mcp-connectors, .env.mcp.example; V0_SETUP_AND_INSTRUCTIONS.md; 1Password: Vercel / v0       | `V0_API_KEY`, `VERCEL_TOKEN`      |
-| **Sentry** | ✅ platform-connections, canonical-mcp-connectors, .env.mcp.example; 1Password: Sentry                                          | `SENTRY_DSN`, `SENTRY_AUTH_TOKEN` |
-| **Canva**  | ✅ platform-connections, canonical-mcp-connectors, .env.mcp.example; segment design export; 1Password: Canva                    | `CANVA_ACCESS_TOKEN`              |
-| **Figma**  | ✅ .cursor/mcp.json (project + user), platform-connections mcps; URL-based MCP (no key)                                         | —                                 |
+| Item            | Status                                                                                                                          | Env Var                                         |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| Perplexity      | ✅ connectors, MCP_MAP, platform-connections                                                                                    | `PERPLEXITY_API_KEY`                            |
+| Genspark        | ✅ MCP_MAP (API TBD)                                                                                                            | `GENSPARK_API_KEY`                              |
+| DuckDuckGo      | ✅ connectors, MCP_MAP                                                                                                          | `DDG_API_KEY`                                   |
+| Attio           | ✅ master-mcp connected_apps                                                                                                    | `ATTIO_API_KEY`                                 |
+| Airtable        | ✅ master-mcp connected_apps                                                                                                    | `AIRTABLE_API_KEY`                              |
+| Docker          | ✅ master-mcp connected_apps (MCP_DOCKER); mirrors cursor + master-mcp                                                          | `DOCKER_CONFIG`                                 |
+| Brave           | ✅ master-mcp connected_apps                                                                                                    | `BRAVE_API_KEY`                                 |
+| **Goose**       | ✅ connectors, platform-connections, master-mcp (external_llm + connected_apps), launch-ai-with-op, GOOSE_SETUP_AND_INTEGRATION | `GOOSE_API_KEY`                                 |
+| **v0**          | ✅ platform-connections, canonical-mcp-connectors, .env.mcp.example; V0_SETUP_AND_INSTRUCTIONS.md; 1Password: Vercel / v0       | `V0_API_KEY`, `VERCEL_TOKEN`                    |
+| **Sentry**      | ✅ platform-connections, canonical-mcp-connectors, .env.mcp.example; 1Password: Sentry                                          | `SENTRY_DSN`, `SENTRY_AUTH_TOKEN`               |
+| **Canva**       | ✅ platform-connections, canonical-mcp-connectors, .env.mcp.example; segment design export; 1Password: Canva                    | `CANVA_ACCESS_TOKEN`                            |
+| **Figma**       | ✅ .cursor/mcp.json (project + user), platform-connections mcps; URL-based MCP (no key)                                         | —                                               |
+| **Browserbase** | ✅ canonical-mcp-connectors, MASTER_MCP §4b; ONEWISHOS_BROWSERBASE_FUNCTIONS_AND_USE_CASES.md                                   | `BROWSERBASE_API_KEY`, `BROWSERBASE_PROJECT_ID` |
 
 **Marketing & design stack (Node, Figma, Framer, v0, Sentry, Canva):** See **docs/MARKETING_AND_DESIGN_CONNECTIONS.md**.
 

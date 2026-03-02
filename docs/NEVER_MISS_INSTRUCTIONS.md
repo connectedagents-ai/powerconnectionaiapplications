@@ -10,12 +10,12 @@
 
 The **constitution for connected tools** is the **canonical registry**: `config/canonical-mcp-connectors.yaml`. Only tools listed there are approved for platform-connections, MCP configs, and prebuilt-agent lists. No tool is added anywhere unless it is in the canonical registry first.
 
-| Source | Purpose |
-|--------|--------|
-| **config/canonical-mcp-connectors.yaml** | Single source of truth for MCPs, connectors, LLMs, applications we officially connect. Add here only; then run sync. |
-| **config/platform-connections.yaml** | Applications, MCPs, LLMs used by verify-all-connections and scripts. Synced from canonical; may have additional entries for local verification. |
-| **config/repos.yaml** | ROUTES and all_repos — which repos receive governance and full sync. Single source for sync targets. |
-| **docs/DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md** | All 9 dev tools (Cursor, Claude Code, Copilot, Codex, v0, VS Code, Windsurf, Warp, Goose). No-fail audit; never omit one. |
+| Source                                         | Purpose                                                                                                                                         |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **config/canonical-mcp-connectors.yaml**       | Single source of truth for MCPs, connectors, LLMs, applications we officially connect. Add here only; then run sync.                            |
+| **config/platform-connections.yaml**           | Applications, MCPs, LLMs used by verify-all-connections and scripts. Synced from canonical; may have additional entries for local verification. |
+| **config/repos.yaml**                          | ROUTES and all_repos — which repos receive governance and full sync. Single source for sync targets.                                            |
+| **docs/DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md** | All 9 dev tools (Cursor, Claude Code, Copilot, Codex, v0, VS Code, Windsurf, Warp, Goose). No-fail audit; never omit one.                       |
 
 **Dev tools (all on same level):** Cursor, Claude Code, GitHub Copilot, Codex, v0, VS Code/Extensions, Windsurf, Warp, Goose. Each gets same governance, entry points, and ability to run any OneWish OS script. See [DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md](DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md).
 
@@ -23,18 +23,21 @@ The **constitution for connected tools** is the **canonical registry**: `config/
 
 ## 2. When to use each tool (what for)
 
-| Use case | Tool / script | When |
-|----------|----------------|------|
-| **Add or remove an MCP/connector** | Edit `config/canonical-mcp-connectors.yaml` only | When adding a new integration. Never add to platform-connections or elsewhere first. |
-| **Propagate canonical → all configs** | `python3 scripts/sync-canonical-mcp-connectors.py` | Immediately after editing canonical-mcp-connectors.yaml. |
-| **Push governance to ROUTES repos** | `./scripts/route-constitution-to-repos.sh` | After constitution, checklist, universal, or bootstrap change; before commit if governance changed. |
-| **Sync master files to all repos** | `./scripts/sync-all-repos-and-review.sh` | After doc/config change that should reach children; weekly; before commit when master files changed. |
-| **Real-time sync (sync + push all children)** | `./scripts/sync-and-push-all-repos.sh` | To keep all repos in sync: route + sync + commit and push in each child. Runs automatically on every `git push` from master (pre-push hook). See [REALTIME_SYNC_ALL_REPOS.md](REALTIME_SYNC_ALL_REPOS.md). |
-| **Refresh workspace for all dev tools** | `./scripts/sync-dev-tools-repos-from-config.sh` | After adding a repo to config/repos.yaml; when Claude Code/Codex need same roots. |
-| **Verify connections (env/keys)** | `./scripts/verify-all-connections.sh` | After adding MCP/connector; optional in Full Review. |
-| **Full Review (mandatory checklist)** | `./scripts/run-full-review.sh` | Before commit; when changing/merging repos; quarterly; on demand. Complete checklist in docs/audits/full-review-summary.md. |
-| **One-shot: route + sync + workspace + Full Review** | `./scripts/connect-and-configure-onewishos.sh` | After adding repo/MCP/connector; when ensuring no target missed. |
-| **Audit runbook (route + sync + workspace + Full Review)** | `./scripts/run-audit-runbook.sh` | Same as connect-and-configure; alternate entry point. |
+| Use case                                                          | Tool / script                                                        | When                                                                                                                                                                                                                                                                                               |
+| ----------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Add or remove an MCP/connector**                                | Edit `config/canonical-mcp-connectors.yaml` only                     | When adding a new integration. Never add to platform-connections or elsewhere first.                                                                                                                                                                                                               |
+| **Propagate canonical → all configs**                             | `python3 scripts/sync-canonical-mcp-connectors.py`                   | Immediately after editing canonical-mcp-connectors.yaml.                                                                                                                                                                                                                                           |
+| **Push governance to ROUTES repos**                               | `./scripts/route-constitution-to-repos.sh`                           | After constitution, checklist, universal, or bootstrap change; before commit if governance changed.                                                                                                                                                                                                |
+| **Sync master files to all repos**                                | `./scripts/sync-all-repos-and-review.sh`                             | After doc/config change that should reach children; weekly; before commit when master files changed.                                                                                                                                                                                               |
+| **Refresh workspace for all dev tools**                           | `./scripts/sync-dev-tools-repos-from-config.sh`                      | After adding a repo to config/repos.yaml; when Claude Code/Codex need same roots.                                                                                                                                                                                                                  |
+| **Verify connections (env/keys)**                                 | `./scripts/verify-all-connections.sh`                                | After adding MCP/connector; optional in Full Review.                                                                                                                                                                                                                                               |
+| **Audit APIs/tokens/credentials (steps + result file)**           | `./scripts/run-apis-credentials-audit.sh` [--json]                   | Step-by-step: baseline verify, verify with 1Password, write docs/audits/APIS_TOKENS_CREDENTIALS_VERIFICATION_RESULT.md. When auditing credentials; optional in Full Review when scope includes MCP/APIs.                                                                                           |
+| **APIs/credentials self-improvement (audit + 1P check + report)** | `./scripts/run-apis-credentials-self-improvement.sh` [--vault VAULT] | Run audit + integrate dry-run + 1Password item check; append last-run to [SELF_IMPROVEMENT_REPORT_APIS_CREDENTIALS_AND_1PASSWORD.md](audits/SELF_IMPROVEMENT_REPORT_APIS_CREDENTIALS_AND_1PASSWORD.md); act on §4.                                                                                 |
+| **Full Review (mandatory checklist)**                             | `./scripts/run-full-review.sh`                                       | Before commit; when changing/merging repos; quarterly; on demand. Complete checklist in docs/audits/full-review-summary.md.                                                                                                                                                                        |
+| **No-fail MCP/API/SDK/IDE connections**                           | See docs/ONEWISHOS_NO_FAIL_MCP_CONNECTIONS_AND_CONNECTEDMCP.md       | When adding/changing MCP or connector; when auditing connectivity; before commit when canonical/platform-connections changed; quarterly. Check + validate MCP additions to master MCP + test. ConnectedMCP (own repo) for self-improving, self-setup, 1Password, Browserbase discovery/fetch/test. |
+| **One-shot: route + sync + workspace + Full Review**              | `./scripts/connect-and-configure-onewishos.sh`                       | After adding repo/MCP/connector; when ensuring no target missed.                                                                                                                                                                                                                                   |
+| **Full OneWish OS sync (canonical + connect-and-configure)**      | `./scripts/run-onewishos-all.sh`                                     | Single command: sync canonical MCP/connectors, then route + sync + workspace + Full Review. After adding connector or when you want one entry point.                                                                                                                                               |
+| **Audit runbook (route + sync + workspace + Full Review)**        | `./scripts/run-audit-runbook.sh`                                     | Same as connect-and-configure; alternate entry point.                                                                                                                                                                                                                                              |
 
 ---
 
@@ -69,7 +72,7 @@ Run in this order so no target is skipped. From **any** connected dev tool (Curs
    All changes committed in master repo; push to GitHub. Then child repos if they have their own remotes.
 ```
 
-**Shortcut:** Steps 2–6 in one go: `./scripts/connect-and-configure-onewishos.sh` (then do 7 and 8).
+**Shortcut:** Steps 2–6 in one go: `./scripts/connect-and-configure-onewishos.sh` (then do 7 and 8). **Full sync (including step 0):** `./scripts/run-onewishos-all.sh` runs sync-canonical then connect-and-configure (then do 7 and 8).
 
 ---
 
@@ -85,29 +88,30 @@ Run in this order so no target is skipped. From **any** connected dev tool (Curs
 **All dev tools commit to master first.** Whether you use Cursor, Claude Code, Codex, or any other connected dev tool:
 
 1. **Work in the master repo** (or a child repo only when that repo is the correct owner of the change).
-2. **Save and commit in the correct location:**  
-   - Governance and platform-wide config → master repo (`CURSOR CLOUD AGENTS`).  
+2. **Save and commit in the correct location:**
+   - Governance and platform-wide config → master repo (`CURSOR CLOUD AGENTS`).
    - Project-specific code/docs that belong to a child repo → that child repo (e.g. LitigationForce.AI, file-management-toolkit).
 3. **Push master to GitHub** so the canonical state is in version control. Paths: `config/`, `docs/`, `scripts/`, `.cursor/`, `.github/` in the master repo root.
 4. **After pushing master,** run the never-miss sequence (at least route + sync) so child repos receive the updates. Child repos that have their own GitHub remotes: commit and push those after sync has copied files from master.
 
 **Proper locations (master repo):**
 
-| Content | Location in master |
-|--------|---------------------|
-| Canonical MCP/connector list | config/canonical-mcp-connectors.yaml |
-| Repo list (ROUTES, all_repos) | config/repos.yaml |
-| Platform connections (apps, MCPs, LLMs) | config/platform-connections.yaml |
-| Connector definitions | config/connectors.yaml |
-| Master MCP server config | config/mcp-servers/master-mcp.yaml |
-| Constitution, protocol, indexes | docs/constitution.md, docs/ONEWISH_PROTOCOL.md, docs/MASTER_INDEX.md |
-| Never-miss and cross-tool docs | docs/NEVER_MISS_INSTRUCTIONS.md, docs/ONEWISHOS_CROSS_TOOL_AND_FULL_INVENTORY.md |
-| Sync script | scripts/sync-all-repos-and-review.sh |
-| Route script | scripts/route-constitution-to-repos.sh |
-| Connect-and-configure | scripts/connect-and-configure-onewishos.sh |
-| Entry points (Cursor) | .cursor/rules/*.mdc, AGENTS.md |
-| Entry points (Claude Code) | CLAUDE.md |
-| Agent spec | .github/agents/my-agent.agent.md |
+| Content                                              | Location in master                                                               |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Canonical MCP/connector list                         | config/canonical-mcp-connectors.yaml                                             |
+| Repo list (ROUTES, all_repos)                        | config/repos.yaml                                                                |
+| Platform connections (apps, MCPs, LLMs)              | config/platform-connections.yaml                                                 |
+| Connector definitions                                | config/connectors.yaml                                                           |
+| Master MCP server config                             | config/mcp-servers/master-mcp.yaml                                               |
+| Constitution, protocol, indexes                      | docs/constitution.md, docs/ONEWISH_PROTOCOL.md, docs/MASTER_INDEX.md             |
+| Repos, GitHub, architecture, rules (all agents sync) | docs/MASTER_REPOS_GITHUB_ARCHITECTURE_AND_RULES.md                               |
+| Never-miss and cross-tool docs                       | docs/NEVER_MISS_INSTRUCTIONS.md, docs/ONEWISHOS_CROSS_TOOL_AND_FULL_INVENTORY.md |
+| Sync script                                          | scripts/sync-all-repos-and-review.sh                                             |
+| Route script                                         | scripts/route-constitution-to-repos.sh                                           |
+| Connect-and-configure                                | scripts/connect-and-configure-onewishos.sh                                       |
+| Entry points (Cursor)                                | .cursor/rules/\*.mdc, AGENTS.md                                                  |
+| Entry points (Claude Code)                           | CLAUDE.md                                                                        |
+| Agent spec                                           | .github/agents/my-agent.agent.md                                                 |
 
 **Child repos** receive copies via sync; they do not edit canonical lists. Edits to governance or platform-wide config are made in **master only**, then propagated by route and sync.
 
@@ -115,26 +119,26 @@ Run in this order so no target is skipped. From **any** connected dev tool (Curs
 
 ## 5. Triggers (when to run the sequence)
 
-| Trigger | Run |
-|--------|-----|
-| **Governance change** (constitution, checklist, universal, bootstrap) | route-constitution → sync-all-repos → Full Review → commit → push master |
-| **Add/remove MCP or connector** | Edit canonical only → sync-canonical-mcp-connectors.py → connect-and-configure-onewishos.sh → commit → push master |
-| **Add/remove repo** | Edit config/repos.yaml → route-constitution → sync-all-repos → sync-dev-tools-repos-from-config → Full Review → commit → push master |
-| **Before commit** (any change in master) | Full Review + mandatory checklist; then commit; then push master to GitHub |
-| **Weekly / recurring** | sync-all-repos-and-review.sh; optionally Full Review |
-| **Quarterly** | Full pass: constitution, MASTER_INDEX, CONSOLIDATION, Full Review, sources compare; commit and push master |
+| Trigger                                                               | Run                                                                                                                                  |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **Governance change** (constitution, checklist, universal, bootstrap) | route-constitution → sync-all-repos → Full Review → commit → push master                                                             |
+| **Add/remove MCP or connector**                                       | Edit canonical only → sync-canonical-mcp-connectors.py → connect-and-configure-onewishos.sh → commit → push master                   |
+| **Add/remove repo**                                                   | Edit config/repos.yaml → route-constitution → sync-all-repos → sync-dev-tools-repos-from-config → Full Review → commit → push master |
+| **Before commit** (any change in master)                              | Full Review + mandatory checklist; then commit; then push master to GitHub                                                           |
+| **Weekly / recurring**                                                | sync-all-repos-and-review.sh; optionally Full Review                                                                                 |
+| **Quarterly**                                                         | Full pass: constitution, MASTER_INDEX, CONSOLIDATION, Full Review, sources compare; commit and push master                           |
 
 ---
 
 ## 6. Cross-references
 
-| Doc | Purpose |
-|-----|--------|
-| [ONEWISH_PROTOCOL.md](ONEWISH_PROTOCOL.md) §5 | Never-miss propagation; targets and protocol data |
-| [MCP_CONNECTOR_SYNC_AND_TRIGGER.md](MCP_CONNECTOR_SYNC_AND_TRIGGER.md) | Add to canonical only; sync trigger; constitution rule for connectors |
-| [ONEWISHOS_CROSS_TOOL_AND_FULL_INVENTORY.md](ONEWISHOS_CROSS_TOOL_AND_FULL_INVENTORY.md) | Cross-tool execution; full inventory; scripts that connect/configure |
-| [audits/artifacts/README.md](audits/artifacts/README.md) | Never-miss sync flow diagram; push/sync summaries |
-| [audits/full-review-summary.md](audits/full-review-summary.md) | Mandatory checklist after Full Review |
-| [DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md](DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md) | All 9 dev tools; no-fail audit |
+| Doc                                                                                      | Purpose                                                               |
+| ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| [ONEWISH_PROTOCOL.md](ONEWISH_PROTOCOL.md) §5                                            | Never-miss propagation; targets and protocol data                     |
+| [MCP_CONNECTOR_SYNC_AND_TRIGGER.md](MCP_CONNECTOR_SYNC_AND_TRIGGER.md)                   | Add to canonical only; sync trigger; constitution rule for connectors |
+| [ONEWISHOS_CROSS_TOOL_AND_FULL_INVENTORY.md](ONEWISHOS_CROSS_TOOL_AND_FULL_INVENTORY.md) | Cross-tool execution; full inventory; scripts that connect/configure  |
+| [audits/artifacts/README.md](audits/artifacts/README.md)                                 | Never-miss sync flow diagram; push/sync summaries                     |
+| [audits/full-review-summary.md](audits/full-review-summary.md)                           | Mandatory checklist after Full Review                                 |
+| [DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md](DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md)           | All 9 dev tools; no-fail audit                                        |
 
 _Maintain at: docs/NEVER_MISS_INSTRUCTIONS.md. Update when adding scripts, triggers, or locations._
