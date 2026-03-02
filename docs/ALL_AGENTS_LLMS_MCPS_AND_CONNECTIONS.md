@@ -4,7 +4,7 @@
 
 **Designated section (top level & downstream):** This doc is the **master list** for the full inventory. It is listed in **docs/MASTER_INDEX.md** §11 (MCP & Connectivity — Master List) and in **AGENTS.md** (Master List — Agents, LLMs, MCPs & Connections). It is **synced to all downstream repos** (LitigationForce.AI, connected-agents-platform, file-management-toolkit, etc.) via `./scripts/sync-all-repos-and-review.sh` §6a so the same list is readily available everywhere.
 
-**Source of truth:** `config/platform-connections.yaml` (applications, mcps, clis, llms, agents). **MCP/LLM routing:** `config/mcp-servers/master-mcp.yaml`. **Canonical MCP registry:** `config/canonical-mcp-connectors.yaml`. **Inference catalog:** `config/inference-models.yaml`. **Blackbox/LLM presets:** `config/blackbox-agents.yaml`.
+**Source of truth:** `config/platform-connections.yaml` (applications, mcps, clis, llms, agents). **Canonical AI/LLM tools list:** `config/ai-llm-tools-canonical.yaml`; dev docs review: [docs/AI_LLM_TOOLS_DEV_DOCS_REVIEW_AND_CANONICAL_LIST.md](AI_LLM_TOOLS_DEV_DOCS_REVIEW_AND_CANONICAL_LIST.md). **MCP/LLM routing:** `config/mcp-servers/master-mcp.yaml`. **Canonical MCP registry:** `config/canonical-mcp-connectors.yaml`. **Inference catalog:** `config/inference-models.yaml`. **Blackbox/LLM presets:** `config/blackbox-agents.yaml`.
 
 **Related:** [MASTER_MCP_CONNECTORS_APIS.md](MASTER_MCP_CONNECTORS_APIS.md) (MCP/connector add flow + 1Password), [MCP_SECRETS_REFERENCE.md](MCP_SECRETS_REFERENCE.md), [MARKETING_AND_DESIGN_CONNECTIONS.md](MARKETING_AND_DESIGN_CONNECTIONS.md) (v0, Figma, Framer, Sentry, Canva), [CLAUDE_CODE_AND_CLAUDE_AI_INTEGRATION_BEGINNER.md](CLAUDE_CODE_AND_CLAUDE_AI_INTEGRATION_BEGINNER.md) §11, [DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md](DEV_TOOLS_CANONICAL_LIST_AND_AUDIT.md), [CONSOLIDATION_AND_REPO_STATUS.md](CONSOLIDATION_AND_REPO_STATUS.md).
 
@@ -61,6 +61,7 @@ From `config/platform-connections.yaml` § `llms`. Each has `env` and `config` (
 | google      | GOOGLE_API_KEY                                       | config/blackbox-agents.yaml  |
 | blackbox    | BLACKBOX_API_KEY                                     | config/blackbox-agents.yaml  |
 | xai         | XAI_API_KEY                                          | config/blackbox-agents.yaml  |
+| open_router | OPENROUTER_API_KEY                                   | config/blackbox-agents.yaml  |
 | huggingface | HF_TOKEN                                             | config/inference-models.yaml |
 
 ### 2.2 Master MCP — external and private LLM

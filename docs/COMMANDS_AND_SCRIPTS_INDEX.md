@@ -37,23 +37,26 @@
 
 ## 3. Verify, eval, review
 
-| Script                                                   | When to use                                                                          | Doc                                                              |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
-| run-all-verifications.sh                                 | Phase 1 of Full Review; routing, connections                                         | run-full-review.sh                                               |
-| run-post-run-eval-loop.sh                                | After omni-audit, comprehensive-eval, full-review                                    | EVAL_LOOP_AND_CHAIN_OF_EVENTS                                    |
-| run-quick-review.sh                                      | Scope/effects per change; emulation check                                            | QUICK_AND_FULL_REVIEW                                            |
-| verify-all-connections.sh                                | After adding MCP/connector; optional in Full Review                                  | NEVER_MISS §2                                                    |
-| run-apis-credentials-audit.sh                            | APIs/tokens/credentials audit step-by-step (baseline + op run, write result); --json | audits/APIS_TOKENS_CREDENTIALS_SETUP_AND_TEST_AUDIT.md           |
-| run-apis-credentials-self-improvement.sh [--vault VAULT] | Run audit + integrate dry-run + 1P check; append last-run to self-improvement report | audits/SELF_IMPROVEMENT_REPORT_APIS_CREDENTIALS_AND_1PASSWORD.md |
-| verify-routing.sh                                        | Routing verification                                                                 | run-all-verifications                                            |
-| verify-platform-connections.sh                           | Platform connections check                                                           | verify-all-connections                                           |
-| verify-env-example-sync.sh                               | .env.example sync                                                                    | run-all-verifications                                            |
-| verify-skills.sh                                         | Skills verification                                                                  | run-all-verifications                                            |
-| codify-recommendations-to-scripts.sh                     | Turn recommendations into Genie-like scripts                                         | GAME_CHANGERS; run-every-turn                                    |
-| run_eval.sh                                              | Schema/regression eval vs data/synthetic/gold                                        | evals.md                                                         |
-| validate_schemas.sh                                      | Schema validation                                                                    | evals.md                                                         |
-| validate-taxonomy.sh                                     | Taxonomy validation                                                                  | evals.md                                                         |
-| validate-financial-audit-yaml.sh                         | Financial audit YAML                                                                 | config/checklists                                                |
+| Script                                                   | When to use                                                                                  | Doc                                                                                    |
+| -------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| run-all-verifications.sh                                 | Phase 1 of Full Review; routing, connections                                                 | run-full-review.sh                                                                     |
+| run-post-run-eval-loop.sh                                | After omni-audit, comprehensive-eval, full-review                                            | EVAL_LOOP_AND_CHAIN_OF_EVENTS                                                          |
+| run-quick-review.sh                                      | Scope/effects per change; emulation check                                                    | QUICK_AND_FULL_REVIEW                                                                  |
+| verify-all-connections.sh                                | After adding MCP/connector; optional in Full Review                                          | NEVER_MISS §2                                                                          |
+| verify-ai-llm-tools.sh [--json]                          | Env check for each tool in config/ai-llm-tools-canonical.yaml                                | AI_LLM_TOOLS_DEV_DOCS_REVIEW_AND_CANONICAL_LIST.md                                     |
+| sync-ai-llm-tools-from-canonical.py [--dry-run]          | Add missing api-type tools from canonical to platform-connections llms                       | AI_LLM_TOOLS_DEV_DOCS_REVIEW_AND_CANONICAL_LIST.md                                     |
+| run-ai-llm-tools-verify-flow.sh [--full-review]          | Multi-flow: sync canonical → platform-connections, verify AI/LLM tools; optional Full Review | AI_LLM_TOOLS_DEV_DOCS_REVIEW_AND_CANONICAL_LIST.md; workflows-ai-llm-tools-verify.yaml |
+| run-apis-credentials-audit.sh                            | APIs/tokens/credentials audit step-by-step (baseline + op run, write result); --json         | audits/APIS_TOKENS_CREDENTIALS_SETUP_AND_TEST_AUDIT.md                                 |
+| run-apis-credentials-self-improvement.sh [--vault VAULT] | Run audit + integrate dry-run + 1P check; append last-run to self-improvement report         | audits/SELF_IMPROVEMENT_REPORT_APIS_CREDENTIALS_AND_1PASSWORD.md                       |
+| verify-routing.sh                                        | Routing verification                                                                         | run-all-verifications                                                                  |
+| verify-platform-connections.sh                           | Platform connections check                                                                   | verify-all-connections                                                                 |
+| verify-env-example-sync.sh                               | .env.example sync                                                                            | run-all-verifications                                                                  |
+| verify-skills.sh                                         | Skills verification                                                                          | run-all-verifications                                                                  |
+| codify-recommendations-to-scripts.sh                     | Turn recommendations into Genie-like scripts                                                 | GAME_CHANGERS; run-every-turn                                                          |
+| run_eval.sh                                              | Schema/regression eval vs data/synthetic/gold                                                | evals.md                                                                               |
+| validate_schemas.sh                                      | Schema validation                                                                            | evals.md                                                                               |
+| validate-taxonomy.sh                                     | Taxonomy validation                                                                          | evals.md                                                                               |
+| validate-financial-audit-yaml.sh                         | Financial audit YAML                                                                         | config/checklists                                                                      |
 
 ---
 
