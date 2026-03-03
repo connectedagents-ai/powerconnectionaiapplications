@@ -2,7 +2,7 @@
 
 **Purpose:** Canonical list of scripts in `scripts/` by category so that **all new commands are organized in place**. After each review, `run-commands-and-architecture-review.sh` checks that every script is listed here (and in NEVER_MISS or ONEWISH_OMNI where applicable); any new script is added to this index and to the appropriate “when to use” doc.
 
-**Governance:** [PRODUCT_THAT_BUILDS_THE_PRODUCT_AND_ARCHITECTURE_TENET.md](PRODUCT_THAT_BUILDS_THE_PRODUCT_AND_ARCHITECTURE_TENET.md); [NEVER_MISS_INSTRUCTIONS.md](NEVER_MISS_INSTRUCTIONS.md); [ONEWISH_OMNI_MAC_DATA_MODEL_AND_COMMANDS.md](ONEWISH_OMNI_MAC_DATA_MODEL_AND_COMMANDS.md).
+**Governance:** [PRODUCT_THAT_BUILDS_THE_PRODUCT_AND_ARCHITECTURE_TENET.md](PRODUCT_THAT_BUILDS_THE_PRODUCT_AND_ARCHITECTURE_TENET.md); [NEVER_MISS_INSTRUCTIONS.md](NEVER_MISS_INSTRUCTIONS.md); [ONEWISH_OMNI_MAC_DATA_MODEL_AND_COMMANDS.md](ONEWISH_OMNI_MAC_DATA_MODEL_AND_COMMANDS.md). **Copy-paste all key commands:** [MASTER_SCRIPTS_COPY_PASTE.md](MASTER_SCRIPTS_COPY_PASTE.md).
 
 ---
 
