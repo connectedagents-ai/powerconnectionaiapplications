@@ -98,18 +98,20 @@
 
 ## 5. MCP, Docker, dev tools
 
-| Script                               | When to use                                                                                                          | Doc                                   |
-| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
-| add-one-wish-agent-mcp.sh            | Add One Wish Agent MCP                                                                                               | MCP_CONNECT_ONE_WISH_AGENT_EVERYWHERE |
-| configure-docker-mcp.sh              | Configure Docker MCP                                                                                                 | activate-all-dev-tools                |
-| setup-mcp-with-1password.sh          | Setup MCP with 1Password                                                                                             | MCP setup                             |
-| activate-all-dev-tools-and-docker.sh | Activate all dev tools and Docker                                                                                    | NEVER_MISS; audits                    |
-| setup-dev-environment.sh             | Setup dev environment                                                                                                | BEGINNER_SETUP                        |
-| setup-github-code-review.sh          | Setup GitHub code review                                                                                             | Repo governance                       |
-| install-git-hooks.sh                 | Install git hooks                                                                                                    | Pre-commit                            |
-| pre-commit-check-no-secrets.sh       | Pre-commit no secrets                                                                                                | run-all-verifications                 |
-| launch-ai-with-op.sh                 | Launch Claude/Codex with 1Password env                                                                               | push-to-claude-code                   |
-| run-connector-signup-agent.sh        | HTTP/browser agent to sign up for a connector (config: config/connector-signup-agent.yaml; env: CONNECTOR*SIGNUP*\*) | connector-signup-agent.yaml           |
+| Script                               | When to use                                                                                                                                                     | Doc                                                                                  |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| add-one-wish-agent-mcp.sh            | Add One Wish Agent MCP                                                                                                                                          | MCP_CONNECT_ONE_WISH_AGENT_EVERYWHERE                                                |
+| configure-docker-mcp.sh              | Configure Docker MCP (secrets + connect Cursor)                                                                                                                 | DOCKER_APPS_AND_MCP_BEST_PRACTICES                                                   |
+| connect-all-docker-and-mcp.sh        | Connect all: Docker running → configure-docker-mcp → enable MCP servers from config → setup-mcp install; options: --with-1p-index, --skip-enable, --all-servers | FULL_INVENTORY_DOCKER_DEVSTACK_LLM_GITHUB_AGENTS; DOCKER_APPS_AND_MCP_BEST_PRACTICES |
+| docker-settings-and-services.sh      | Report Docker info + recommended Desktop settings; optionally enable MCP servers (--enable-services, --all)                                                     | FULL_INVENTORY; DOCKER_APPS_AND_MCP_BEST_PRACTICES                                   |
+| setup-mcp-with-1password.sh          | Setup MCP with 1Password                                                                                                                                        | MCP setup                                                                            |
+| activate-all-dev-tools-and-docker.sh | Activate all dev tools and Docker                                                                                                                               | NEVER_MISS; audits                                                                   |
+| setup-dev-environment.sh             | Setup dev environment                                                                                                                                           | BEGINNER_SETUP                                                                       |
+| setup-github-code-review.sh          | Setup GitHub code review                                                                                                                                        | Repo governance                                                                      |
+| install-git-hooks.sh                 | Install git hooks                                                                                                                                               | Pre-commit                                                                           |
+| pre-commit-check-no-secrets.sh       | Pre-commit no secrets                                                                                                                                           | run-all-verifications                                                                |
+| launch-ai-with-op.sh                 | Launch Claude/Codex with 1Password env                                                                                                                          | push-to-claude-code                                                                  |
+| run-connector-signup-agent.sh        | HTTP/browser agent to sign up for a connector (config: config/connector-signup-agent.yaml; env: CONNECTOR*SIGNUP*\*)                                            | connector-signup-agent.yaml                                                          |
 
 ---
 
